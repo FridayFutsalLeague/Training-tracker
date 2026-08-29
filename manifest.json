@@ -1,6 +1,6 @@
 {
-  "name": "Training Tracker",
-  "short_name": "Training",
+  "name": "Trainer Tracker",
+  "short_name": "Trainer Tracker",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0f1115",
