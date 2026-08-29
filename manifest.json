@@ -1,6 +1,6 @@
 {
-  "name": "Trainer Tracker",
-  "short_name": "Trainer Tracker",
+  "name": "SP Trainer",
+  "short_name": "SP Trainer",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0f1115",
@@ -16,5 +16,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "description": "Track. Train. Progress."
 }
