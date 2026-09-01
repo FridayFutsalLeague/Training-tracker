@@ -14,7 +14,8 @@
 .brand-copy h1{margin:0;font-size:28px;line-height:1.05}
 .brand-copy .sub{margin:4px 0 0}
 
-</style></head><body><button id="backupNavBtn" class="primary" type="button" onclick="showBackupTab()" style="margin:10px 0">💾 Backup</button><div class="wrap"><div class="brand-head"><img class="brand-icon" src="icon-192.png" alt="SP Trainer icon"><div class="brand-copy"><h1>SP Trainer</h1><p class="sub">Track. Train. Progress.</p></div></div>
+</style></head><body>
+<div class="wrap"><div class="brand-head"><img class="brand-icon" src="icon-192.png" alt="SP Trainer icon"><div class="brand-copy"><h1>SP Trainer</h1><p class="sub">Track. Train. Progress.</p></div></div>
 <div class="nav"><button class="pill active" data-view="workout">Workout</button><button class="pill" data-view="history">History</button><button class="pill" data-view="progress">Progress</button><button class="pill" data-view="program">Program</button>
 <button class="pill" data-view="help">Help</button></div>
 <div class="stats"><div class="stat"><b id="sessionsStat">0</b><span>saved sessions</span></div><div class="stat"><b id="pbStat">0</b><span>exercise PBs</span></div><div class="stat"><b id="daysStat">0</b><span>days trained</span></div></div>
@@ -31,25 +32,23 @@
   <div class="help-card"><h3><span class="help-step">4</span>Program</h3><p>Change exercise names, sets and rep targets, or add and remove exercises without rebuilding the app.</p></div>
   <div class="help-card"><h3><span class="help-step">5</span>PBs</h3><p>Your current PB is the highest weight you have saved for that exercise. We can expand this later to include rep PBs and estimated strength PBs.</p></div>
   <div class="help-card"><h3>Exercise pictures</h3><p>The small illustrations are quick visual reminders of each movement. For your knee rehabilitation exercises, continue to follow the technique and dosage given by your physio.</p></div>
+
+<div class="card" style="margin-top:18px">
+  <h3 style="margin-top:0">💾 Backup & Restore</h3>
+  <p class="muted">Save a copy of your SP Trainer workout history and program so you can restore it if you change phones, browsers or website addresses.</p>
+  <button class="primary" type="button" onclick="exportSPBackup()">Export Backup</button>
+  <div style="height:10px"></div>
+  <label class="primary" style="display:inline-block;cursor:pointer">
+    Import / Restore Backup
+    <input id="backupFile" type="file" accept=".json,application/json" style="display:none" onchange="importSPBackup(this.files[0])">
+  </label>
+  <p class="muted" style="margin-top:10px">Export periodically and keep the JSON backup file somewhere safe.</p>
+  <div id="backupStatus" class="muted" style="margin-top:8px"></div>
+</div>
+
 </section>
 
 </div>
-<section id="backup" class="tab-panel view" style="display:none">
-  <div class="card">
-    <h2>Backup & Restore</h2>
-    <p class="muted">Keep a copy of your SP Trainer data so you can restore it after changing phones, browsers or website addresses.</p>
-    <button class="primary" onclick="exportSPBackup()">Export Backup</button>
-    <p class="muted" style="margin-top:8px">Downloads a small JSON file containing your workout history, saved program and current workout draft.</p>
-    <hr style="margin:20px 0;border:0;border-top:1px solid var(--border)">
-    <label class="primary" style="display:inline-block;cursor:pointer">
-      Import / Restore Backup
-      <input id="backupFile" type="file" accept=".json,application/json" style="display:none" onchange="importSPBackup(this.files[0])">
-    </label>
-    <p class="muted" style="margin-top:8px">Restoring will replace the matching SP Trainer data currently saved on this device.</p>
-    <div id="backupStatus" class="muted" style="margin-top:12px"></div>
-  </div>
-</section>
-
 <script>
 const DEFAULT_PROGRAM={"Saturday":{"title":"Chest + Back","groups":[{"name":"Chest","ex":[{"name":"Barbell Bench Press","sets":3,"reps":"6–8"},{"name":"Incline Dumbbell Press","sets":3,"reps":"8–12"},{"name":"Dumbbell Chest Fly","sets":2,"reps":"10–15"}]},{"name":"Back","ex":[{"name":"One-Arm Dumbbell Row","sets":3,"reps":"8–12"},{"name":"Barbell Row","sets":3,"reps":"6–10"},{"name":"Dumbbell Pullover","sets":2,"reps":"10–15"}]}]},"Sunday":{"title":"Shoulders + Arms + Knee Rehab","groups":[{"name":"Shoulders","ex":[{"name":"Dumbbell / Barbell Shoulder Press","sets":3,"reps":"6–10"},{"name":"Dumbbell Lateral Raise","sets":3,"reps":"10–15"},{"name":"Rear Delt Fly","sets":2,"reps":"12–15"}]},{"name":"Arms","ex":[{"name":"Dumbbell Hammer Curl","sets":3,"reps":"8–12"},{"name":"Overhead Dumbbell Tricep Extension","sets":3,"reps":"8–12"}]},{"name":"Knee Rehabilitation","ex":[{"name":"Single-Leg Wall Sit (90°)","sets":2,"reps":"30 sec hold"},{"name":"DB Romanian Deadlift","sets":3,"reps":"8"},{"name":"Single-Leg Glute Bridge (Barbell)","sets":3,"reps":"10 per leg"},{"name":"Bulgarian Split Squat","sets":3,"reps":"10 per leg"},{"name":"Side Step with Mini-Band Around Feet","sets":3,"reps":"10 steps each side"},{"name":"Step Down Step / Stair","sets":3,"reps":"8 • 3 sec down • 5 kg"},{"name":"Hip Abduction with Miniband","sets":3,"reps":"10"}]}]},"Monday":{"title":"Chest + Back","groups":[{"name":"Chest","ex":[{"name":"Incline Barbell Bench Press","sets":3,"reps":"6–10"},{"name":"Flat Dumbbell Press","sets":3,"reps":"8–12"}]},{"name":"Back","ex":[{"name":"One-Arm Dumbbell Row","sets":3,"reps":"8–12"},{"name":"Chest-Supported Dumbbell Row","sets":3,"reps":"8–12"},{"name":"Band Face Pull","sets":2,"reps":"12–20"}]},{"name":"Arms Finisher","ex":[{"name":"Dumbbell Bicep Curl","sets":2,"reps":"10–15"},{"name":"Dumbbell Skull Crusher","sets":2,"reps":"10–15"}]}]},"Wednesday":{"title":"Shoulders + Arms + Knee Rehab","groups":[{"name":"Shoulders","ex":[{"name":"Seated Dumbbell Shoulder Press","sets":3,"reps":"8–12"},{"name":"Dumbbell Lateral Raise","sets":3,"reps":"12–15"},{"name":"Band Face Pull","sets":2,"reps":"12–20"}]},{"name":"Arms","ex":[{"name":"Alternating Dumbbell Curl","sets":3,"reps":"8–12"},{"name":"Close-Grip Bench Press","sets":3,"reps":"8–12"}]},{"name":"Knee Rehabilitation","ex":[{"name":"Single-Leg Wall Sit (90°)","sets":2,"reps":"30 sec hold"},{"name":"DB Romanian Deadlift","sets":3,"reps":"8"},{"name":"Single-Leg Glute Bridge (Barbell)","sets":3,"reps":"10 per leg"},{"name":"Bulgarian Split Squat","sets":3,"reps":"10 per leg"},{"name":"Side Step with Mini-Band Around Feet","sets":3,"reps":"10 steps each side"},{"name":"Step Down Step / Stair","sets":3,"reps":"8 • 3 sec down • 5 kg"},{"name":"Hip Abduction with Miniband","sets":3,"reps":"10"}]}]}};
 const clone=x=>JSON.parse(JSON.stringify(x)),load=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch{return d}},save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
@@ -192,25 +191,10 @@ function importSPBackup(file){
 }
 
 
-document.addEventListener("click",function(e){
-  const b=e.target.closest('[data-tab="backup"]');
-  if(!b) return;
-  document.querySelectorAll(".tab-panel").forEach(x=>x.style.display="none");
-  const panel=document.getElementById("backup");
-  if(panel) panel.style.display="";
-});
 
 
 
-function showBackupTab(){
-  document.querySelectorAll(".view,.tab-panel").forEach(function(el){
-    el.style.display="none";
-  });
-  const panel=document.getElementById("backup");
-  if(panel){
-    panel.style.display="block";
-    window.scrollTo({top:0,behavior:"smooth"});
-  }
-}
+
+
 
 </script></body></html>
