@@ -33,7 +33,24 @@
   <div class="help-card"><h3>Exercise pictures</h3><p>The small illustrations are quick visual reminders of each movement. For your knee rehabilitation exercises, continue to follow the technique and dosage given by your physio.</p></div>
 </section>
 
-</div><script>
+</div>
+<section id="backup" class="tab-panel" style="display:none">
+  <div class="card">
+    <h2>Backup & Restore</h2>
+    <p class="muted">Keep a copy of your SP Trainer data so you can restore it after changing phones, browsers or website addresses.</p>
+    <button class="primary" onclick="exportSPBackup()">Export Backup</button>
+    <p class="muted" style="margin-top:8px">Downloads a small JSON file containing your workout history, saved program and current workout draft.</p>
+    <hr style="margin:20px 0;border:0;border-top:1px solid var(--border)">
+    <label class="primary" style="display:inline-block;cursor:pointer">
+      Import / Restore Backup
+      <input id="backupFile" type="file" accept=".json,application/json" style="display:none" onchange="importSPBackup(this.files[0])">
+    </label>
+    <p class="muted" style="margin-top:8px">Restoring will replace the matching SP Trainer data currently saved on this device.</p>
+    <div id="backupStatus" class="muted" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<script>
 const DEFAULT_PROGRAM={"Saturday":{"title":"Chest + Back","groups":[{"name":"Chest","ex":[{"name":"Barbell Bench Press","sets":3,"reps":"6–8"},{"name":"Incline Dumbbell Press","sets":3,"reps":"8–12"},{"name":"Dumbbell Chest Fly","sets":2,"reps":"10–15"}]},{"name":"Back","ex":[{"name":"One-Arm Dumbbell Row","sets":3,"reps":"8–12"},{"name":"Barbell Row","sets":3,"reps":"6–10"},{"name":"Dumbbell Pullover","sets":2,"reps":"10–15"}]}]},"Sunday":{"title":"Shoulders + Arms + Knee Rehab","groups":[{"name":"Shoulders","ex":[{"name":"Dumbbell / Barbell Shoulder Press","sets":3,"reps":"6–10"},{"name":"Dumbbell Lateral Raise","sets":3,"reps":"10–15"},{"name":"Rear Delt Fly","sets":2,"reps":"12–15"}]},{"name":"Arms","ex":[{"name":"Dumbbell Hammer Curl","sets":3,"reps":"8–12"},{"name":"Overhead Dumbbell Tricep Extension","sets":3,"reps":"8–12"}]},{"name":"Knee Rehabilitation","ex":[{"name":"Single-Leg Wall Sit (90°)","sets":2,"reps":"30 sec hold"},{"name":"DB Romanian Deadlift","sets":3,"reps":"8"},{"name":"Single-Leg Glute Bridge (Barbell)","sets":3,"reps":"10 per leg"},{"name":"Bulgarian Split Squat","sets":3,"reps":"10 per leg"},{"name":"Side Step with Mini-Band Around Feet","sets":3,"reps":"10 steps each side"},{"name":"Step Down Step / Stair","sets":3,"reps":"8 • 3 sec down • 5 kg"},{"name":"Hip Abduction with Miniband","sets":3,"reps":"10"}]}]},"Monday":{"title":"Chest + Back","groups":[{"name":"Chest","ex":[{"name":"Incline Barbell Bench Press","sets":3,"reps":"6–10"},{"name":"Flat Dumbbell Press","sets":3,"reps":"8–12"}]},{"name":"Back","ex":[{"name":"One-Arm Dumbbell Row","sets":3,"reps":"8–12"},{"name":"Chest-Supported Dumbbell Row","sets":3,"reps":"8–12"},{"name":"Band Face Pull","sets":2,"reps":"12–20"}]},{"name":"Arms Finisher","ex":[{"name":"Dumbbell Bicep Curl","sets":2,"reps":"10–15"},{"name":"Dumbbell Skull Crusher","sets":2,"reps":"10–15"}]}]},"Wednesday":{"title":"Shoulders + Arms + Knee Rehab","groups":[{"name":"Shoulders","ex":[{"name":"Seated Dumbbell Shoulder Press","sets":3,"reps":"8–12"},{"name":"Dumbbell Lateral Raise","sets":3,"reps":"12–15"},{"name":"Band Face Pull","sets":2,"reps":"12–20"}]},{"name":"Arms","ex":[{"name":"Alternating Dumbbell Curl","sets":3,"reps":"8–12"},{"name":"Close-Grip Bench Press","sets":3,"reps":"8–12"}]},{"name":"Knee Rehabilitation","ex":[{"name":"Single-Leg Wall Sit (90°)","sets":2,"reps":"30 sec hold"},{"name":"DB Romanian Deadlift","sets":3,"reps":"8"},{"name":"Single-Leg Glute Bridge (Barbell)","sets":3,"reps":"10 per leg"},{"name":"Bulgarian Split Squat","sets":3,"reps":"10 per leg"},{"name":"Side Step with Mini-Band Around Feet","sets":3,"reps":"10 steps each side"},{"name":"Step Down Step / Stair","sets":3,"reps":"8 • 3 sec down • 5 kg"},{"name":"Hip Abduction with Miniband","sets":3,"reps":"10"}]}]}};
 const clone=x=>JSON.parse(JSON.stringify(x)),load=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch{return d}},save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 let PROGRAM=load("training_program_v2",clone(DEFAULT_PROGRAM)),currentDay=localStorage.getItem("tracker_day")||Object.keys(PROGRAM)[0],editDay=currentDay;
@@ -108,4 +125,79 @@ function renderEditor(){editTabs();const d=PROGRAM[editDay];programEditor.innerH
 resetProgram.onclick=()=>{if(confirm("Reset program? Workout history will stay saved.")){PROGRAM=clone(DEFAULT_PROGRAM);save("training_program_v2",PROGRAM);currentDay=Object.keys(PROGRAM)[0];editDay=currentDay;renderWorkout();renderEditor();renderProgress()}}
 document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-view]").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(b.dataset.view).classList.add("active");if(b.dataset.view==="history")renderHistory();if(b.dataset.view==="progress")renderProgress();if(b.dataset.view==="program")renderEditor()});
 if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{}));renderWorkout();renderHistory();renderProgress();renderEditor();
+
+
+function spBackupKeys(){
+  return [
+    "training_history",
+    "training_program_v2",
+    "training_draft",
+    "sp_trainer_v4_rehab_migrated"
+  ];
+}
+
+function exportSPBackup(){
+  try{
+    const data = {
+      app: "SP Trainer",
+      version: 6,
+      exportedAt: new Date().toISOString(),
+      storage: {}
+    };
+    spBackupKeys().forEach(k=>{
+      const v = localStorage.getItem(k);
+      if(v !== null) data.storage[k] = v;
+    });
+    const blob = new Blob([JSON.stringify(data,null,2)], {type:"application/json"});
+    const a = document.createElement("a");
+    const d = new Date();
+    const stamp = d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+    a.href = URL.createObjectURL(blob);
+    a.download = "SP-Trainer-Backup-"+stamp+".json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    const el=document.getElementById("backupStatus");
+    if(el) el.textContent="Backup exported successfully.";
+  }catch(e){
+    alert("Could not export backup: "+e.message);
+  }
+}
+
+function importSPBackup(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(){
+    try{
+      const data = JSON.parse(reader.result);
+      if(!data || data.app !== "SP Trainer" || !data.storage){
+        throw new Error("This does not look like an SP Trainer backup.");
+      }
+      const allowed = new Set(spBackupKeys());
+      const incoming = Object.entries(data.storage).filter(([k])=>allowed.has(k));
+      if(!incoming.length) throw new Error("No SP Trainer data was found in this backup.");
+      if(!confirm("Restore this backup? Matching workout history/program data currently on this device will be replaced.")) return;
+      incoming.forEach(([k,v])=>localStorage.setItem(k,v));
+      alert("Backup restored successfully. SP Trainer will reload now.");
+      location.reload();
+    }catch(e){
+      alert("Could not restore backup: "+e.message);
+    }finally{
+      const input=document.getElementById("backupFile");
+      if(input) input.value="";
+    }
+  };
+  reader.readAsText(file);
+}
+
+
+document.addEventListener("click",function(e){
+  const b=e.target.closest('[data-tab="backup"]');
+  if(!b) return;
+  document.querySelectorAll(".tab-panel").forEach(x=>x.style.display="none");
+  const panel=document.getElementById("backup");
+  if(panel) panel.style.display="";
+});
+
 </script></body></html>
