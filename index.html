@@ -14,7 +14,7 @@
 .brand-copy h1{margin:0;font-size:28px;line-height:1.05}
 .brand-copy .sub{margin:4px 0 0}
 
-</style></head><body><div class="wrap"><div class="brand-head"><img class="brand-icon" src="icon-192.png" alt="SP Trainer icon"><div class="brand-copy"><h1>SP Trainer</h1><p class="sub">Track. Train. Progress.</p></div></div>
+</style></head><body><button id="backupNavBtn" class="primary" type="button" onclick="showBackupTab()" style="margin:10px 0">💾 Backup</button><div class="wrap"><div class="brand-head"><img class="brand-icon" src="icon-192.png" alt="SP Trainer icon"><div class="brand-copy"><h1>SP Trainer</h1><p class="sub">Track. Train. Progress.</p></div></div>
 <div class="nav"><button class="pill active" data-view="workout">Workout</button><button class="pill" data-view="history">History</button><button class="pill" data-view="progress">Progress</button><button class="pill" data-view="program">Program</button>
 <button class="pill" data-view="help">Help</button></div>
 <div class="stats"><div class="stat"><b id="sessionsStat">0</b><span>saved sessions</span></div><div class="stat"><b id="pbStat">0</b><span>exercise PBs</span></div><div class="stat"><b id="daysStat">0</b><span>days trained</span></div></div>
@@ -34,7 +34,7 @@
 </section>
 
 </div>
-<section id="backup" class="tab-panel" style="display:none">
+<section id="backup" class="tab-panel view" style="display:none">
   <div class="card">
     <h2>Backup & Restore</h2>
     <p class="muted">Keep a copy of your SP Trainer data so you can restore it after changing phones, browsers or website addresses.</p>
@@ -199,5 +199,18 @@ document.addEventListener("click",function(e){
   const panel=document.getElementById("backup");
   if(panel) panel.style.display="";
 });
+
+
+
+function showBackupTab(){
+  document.querySelectorAll(".view,.tab-panel").forEach(function(el){
+    el.style.display="none";
+  });
+  const panel=document.getElementById("backup");
+  if(panel){
+    panel.style.display="block";
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+}
 
 </script></body></html>
