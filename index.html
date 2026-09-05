@@ -14,7 +14,7 @@
 .brand-copy h1{margin:0;font-size:28px;line-height:1.05}
 .brand-copy .sub{margin:4px 0 0}
 
-</style></head><body>
+.unitlabel{display:flex;align-items:center;justify-content:center;min-height:44px;background:var(--panel2);border:1px solid var(--border);border-radius:10px}\n</style></head><body>
 <div class="wrap"><div class="brand-head"><img class="brand-icon" src="icon-192.png" alt="SP Trainer icon"><div class="brand-copy"><h1>SP Trainer</h1><p class="sub">Track. Train. Progress.</p></div></div>
 <div class="nav"><button class="pill active" data-view="workout">Workout</button><button class="pill" data-view="history">History</button><button class="pill" data-view="progress">Progress</button><button class="pill" data-view="program">Program</button>
 <button class="pill" data-view="help">Help</button></div>
@@ -26,7 +26,7 @@
 
 <section id="help" class="view">
   <div class="section-title"><h2>How to use SP Trainer</h2><span>Quick guide</span></div>
-  <div class="help-card"><h3><span class="help-step">1</span>Workout</h3><p>Choose your training day and enter the reps you complete. Your previous workout weight is automatically filled in as a starting point. Tap the circle to mark a set complete, add a note if needed, then press <strong>Finish &amp; Save</strong>.</p></div>
+  <div class="help-card"><h3><span class="help-step">1</span>Workout</h3><p>Choose your training day and enter the reps you complete. Your previous workout weight and reps are automatically filled in as a starting point. Tap the circle to mark a set complete, add a note if needed, then press <strong>Finish &amp; Save</strong>.</p></div>
   <div class="help-card"><h3><span class="help-step">2</span>History</h3><p>Review your saved sessions, including the weight and reps you recorded for each exercise.</p></div>
   <div class="help-card"><h3><span class="help-step">3</span>Progress</h3><p>Select an exercise to see your best recorded weight and a simple graph of your recent progress.</p></div>
   <div class="help-card"><h3><span class="help-step">4</span>Program</h3><p>Change exercise names, sets and rep targets, or add and remove exercises without rebuilding the app.</p></div>
@@ -50,11 +50,11 @@
 
 </div>
 <script>
-const DEFAULT_PROGRAM={"Saturday":{"title":"Chest + Back","groups":[{"name":"Chest","ex":[{"name":"Barbell Bench Press","sets":3,"reps":"6–8"},{"name":"Incline Dumbbell Press","sets":3,"reps":"8–12"},{"name":"Dumbbell Chest Fly","sets":2,"reps":"10–15"}]},{"name":"Back","ex":[{"name":"One-Arm Dumbbell Row","sets":3,"reps":"8–12"},{"name":"Barbell Row","sets":3,"reps":"6–10"},{"name":"Dumbbell Pullover","sets":2,"reps":"10–15"}]}]},"Sunday":{"title":"Shoulders + Arms + Knee Rehab","groups":[{"name":"Shoulders","ex":[{"name":"Dumbbell / Barbell Shoulder Press","sets":3,"reps":"6–10"},{"name":"Dumbbell Lateral Raise","sets":3,"reps":"10–15"},{"name":"Rear Delt Fly","sets":2,"reps":"12–15"}]},{"name":"Arms","ex":[{"name":"Dumbbell Hammer Curl","sets":3,"reps":"8–12"},{"name":"Overhead Dumbbell Tricep Extension","sets":3,"reps":"8–12"}]},{"name":"Knee Rehabilitation","ex":[{"name":"Single-Leg Wall Sit (90°)","sets":2,"reps":"30 sec hold"},{"name":"DB Romanian Deadlift","sets":3,"reps":"8"},{"name":"Single-Leg Glute Bridge (Barbell)","sets":3,"reps":"10 per leg"},{"name":"Bulgarian Split Squat","sets":3,"reps":"10 per leg"},{"name":"Side Step with Mini-Band Around Feet","sets":3,"reps":"10 steps each side"},{"name":"Step Down Step / Stair","sets":3,"reps":"8 • 3 sec down • 5 kg"},{"name":"Hip Abduction with Miniband","sets":3,"reps":"10"}]}]},"Monday":{"title":"Chest + Back","groups":[{"name":"Chest","ex":[{"name":"Incline Barbell Bench Press","sets":3,"reps":"6–10"},{"name":"Flat Dumbbell Press","sets":3,"reps":"8–12"}]},{"name":"Back","ex":[{"name":"One-Arm Dumbbell Row","sets":3,"reps":"8–12"},{"name":"Chest-Supported Dumbbell Row","sets":3,"reps":"8–12"},{"name":"Band Face Pull","sets":2,"reps":"12–20"}]},{"name":"Arms Finisher","ex":[{"name":"Dumbbell Bicep Curl","sets":2,"reps":"10–15"},{"name":"Dumbbell Skull Crusher","sets":2,"reps":"10–15"}]}]},"Wednesday":{"title":"Shoulders + Arms + Knee Rehab","groups":[{"name":"Shoulders","ex":[{"name":"Seated Dumbbell Shoulder Press","sets":3,"reps":"8–12"},{"name":"Dumbbell Lateral Raise","sets":3,"reps":"12–15"},{"name":"Band Face Pull","sets":2,"reps":"12–20"}]},{"name":"Arms","ex":[{"name":"Alternating Dumbbell Curl","sets":3,"reps":"8–12"},{"name":"Close-Grip Bench Press","sets":3,"reps":"8–12"}]},{"name":"Knee Rehabilitation","ex":[{"name":"Single-Leg Wall Sit (90°)","sets":2,"reps":"30 sec hold"},{"name":"DB Romanian Deadlift","sets":3,"reps":"8"},{"name":"Single-Leg Glute Bridge (Barbell)","sets":3,"reps":"10 per leg"},{"name":"Bulgarian Split Squat","sets":3,"reps":"10 per leg"},{"name":"Side Step with Mini-Band Around Feet","sets":3,"reps":"10 steps each side"},{"name":"Step Down Step / Stair","sets":3,"reps":"8 • 3 sec down • 5 kg"},{"name":"Hip Abduction with Miniband","sets":3,"reps":"10"}]}]}};
+const DEFAULT_PROGRAM={"Saturday":{"title":"Chest + Back","groups":[{"name":"Chest","ex":[{"name":"Barbell Bench Press","sets":3,"reps":"6–8"},{"name":"Incline Dumbbell Press","sets":3,"reps":"8–12"},{"name":"Dumbbell Chest Fly","sets":2,"reps":"10–15"}]},{"name":"Back","ex":[{"name":"One-Arm Dumbbell Row","sets":3,"reps":"8–12"},{"name":"Barbell Row","sets":3,"reps":"6–10"},{"name":"Dumbbell Pullover","sets":2,"reps":"10–15"}]}]},"Sunday":{"title":"Shoulders + Arms + Knee Rehab","groups":[{"name":"Shoulders","ex":[{"name":"Dumbbell / Barbell Shoulder Press","sets":3,"reps":"6–10"},{"name":"Dumbbell Lateral Raise","sets":3,"reps":"10–15"},{"name":"Rear Delt Fly","sets":2,"reps":"12–15"}]},{"name":"Arms","ex":[{"name":"Dumbbell Hammer Curl","sets":3,"reps":"8–12"},{"name":"Overhead Dumbbell Tricep Extension","sets":3,"reps":"8–12"}]},{"name":"Knee Rehabilitation","ex":[{"name":"Single-Leg Wall Sit (90°)","sets":3,"reps":"30 sec hold"},{"name":"DB Romanian Deadlift","sets":3,"reps":"8"},{"name":"Single-Leg Glute Bridge (Barbell)","sets":3,"reps":"10 per leg"},{"name":"Bulgarian Split Squat","sets":3,"reps":"10 per leg"},{"name":"Side Step with Mini-Band Around Feet","sets":3,"reps":"10 steps each side"},{"name":"Step Down Step / Stair","sets":3,"reps":"8 • 3 sec down • 5 kg"},{"name":"Hip Abduction with Miniband","sets":3,"reps":"10"}]}]},"Monday":{"title":"Chest + Back","groups":[{"name":"Chest","ex":[{"name":"Incline Barbell Bench Press","sets":3,"reps":"6–10"},{"name":"Flat Dumbbell Press","sets":3,"reps":"8–12"}]},{"name":"Back","ex":[{"name":"One-Arm Dumbbell Row","sets":3,"reps":"8–12"},{"name":"Chest-Supported Dumbbell Row","sets":3,"reps":"8–12"},{"name":"Band Face Pull","sets":2,"reps":"12–20"}]},{"name":"Arms Finisher","ex":[{"name":"Dumbbell Bicep Curl","sets":2,"reps":"10–15"},{"name":"Dumbbell Skull Crusher","sets":2,"reps":"10–15"}]}]},"Wednesday":{"title":"Shoulders + Arms + Knee Rehab","groups":[{"name":"Shoulders","ex":[{"name":"Seated Dumbbell Shoulder Press","sets":3,"reps":"8–12"},{"name":"Dumbbell Lateral Raise","sets":3,"reps":"12–15"},{"name":"Band Face Pull","sets":2,"reps":"12–20"}]},{"name":"Arms","ex":[{"name":"Alternating Dumbbell Curl","sets":3,"reps":"8–12"},{"name":"Close-Grip Bench Press","sets":3,"reps":"8–12"}]},{"name":"Knee Rehabilitation","ex":[{"name":"Single-Leg Wall Sit (90°)","sets":3,"reps":"30 sec hold"},{"name":"DB Romanian Deadlift","sets":3,"reps":"8"},{"name":"Single-Leg Glute Bridge (Barbell)","sets":3,"reps":"10 per leg"},{"name":"Bulgarian Split Squat","sets":3,"reps":"10 per leg"},{"name":"Side Step with Mini-Band Around Feet","sets":3,"reps":"10 steps each side"},{"name":"Step Down Step / Stair","sets":3,"reps":"8 • 3 sec down • 5 kg"},{"name":"Hip Abduction with Miniband","sets":3,"reps":"10"}]}]}};
 const clone=x=>JSON.parse(JSON.stringify(x)),load=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch{return d}},save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 let PROGRAM=load("training_program_v2",clone(DEFAULT_PROGRAM)),currentDay=localStorage.getItem("tracker_day")||Object.keys(PROGRAM)[0],editDay=currentDay;
 
-const SP_V4_REHAB = [{"name":"Single-Leg Wall Sit (90°)","sets":2,"reps":"30 sec hold"},{"name":"DB Romanian Deadlift","sets":3,"reps":"8"},{"name":"Single-Leg Glute Bridge (Barbell)","sets":3,"reps":"10 per leg"},{"name":"Bulgarian Split Squat","sets":3,"reps":"10 per leg"},{"name":"Side Step with Mini-Band Around Feet","sets":3,"reps":"10 steps each side"},{"name":"Step Down Step / Stair","sets":3,"reps":"8 • 3 sec down • 5 kg"},{"name":"Hip Abduction with Miniband","sets":3,"reps":"10"}];
+const SP_V4_REHAB = [{"name":"Single-Leg Wall Sit (90°)","sets":3,"reps":"30 sec hold"},{"name":"DB Romanian Deadlift","sets":3,"reps":"8"},{"name":"Single-Leg Glute Bridge (Barbell)","sets":3,"reps":"10 per leg"},{"name":"Bulgarian Split Squat","sets":3,"reps":"10 per leg"},{"name":"Side Step with Mini-Band Around Feet","sets":3,"reps":"10 steps each side"},{"name":"Step Down Step / Stair","sets":3,"reps":"8 • 3 sec down • 5 kg"},{"name":"Hip Abduction with Miniband","sets":3,"reps":"10"}];
 if(!localStorage.getItem("sp_trainer_v4_rehab_migrated")){
   ["Sunday","Wednesday"].forEach(day=>{
     if(PROGRAM[day] && PROGRAM[day].groups){
@@ -65,6 +65,22 @@ if(!localStorage.getItem("sp_trainer_v4_rehab_migrated")){
   });
   save("training_program_v2",PROGRAM);
   localStorage.setItem("sp_trainer_v4_rehab_migrated","1");
+}
+
+
+if(!localStorage.getItem("sp_trainer_v7_rehab_fields_migrated")){
+  ["Sunday","Wednesday"].forEach(day=>{
+    const groups=PROGRAM[day]?.groups||[];
+    groups.forEach(g=>(g.ex||[]).forEach(ex=>{
+      if((ex.name||"").toLowerCase().includes("single-leg wall sit") ||
+         (ex.name||"").toLowerCase().includes("single leg wall sit")){
+        ex.sets=3;
+        ex.reps="30 sec hold";
+      }
+    }));
+  });
+  save("training_program_v2",PROGRAM);
+  localStorage.setItem("sp_trainer_v7_rehab_fields_migrated","1");
 }
 
 const H=()=>load("training_history",[]),D=()=>load("training_draft",{}),K=(d,n)=>d+"__"+n;
@@ -105,16 +121,169 @@ function exerciseImage(name){
 
 
 function names(){const s=new Set();Object.values(PROGRAM).forEach(d=>d.groups.forEach(g=>g.ex.forEach(e=>s.add(e.name))));return [...s].sort()}
-function last(day,name){const h=H();for(let i=h.length-1;i>=0;i--){const e=(h[i].exercises||[]).find(x=>x.key===K(day,name)||x.name===name);if(e)return e}return null}
-function pb(name){let b=0;H().forEach(s=>(s.exercises||[]).forEach(e=>{if(e.name===name)(e.sets||[]).forEach(x=>b=Math.max(b,Number(x.kg)||0))}));return b}
-function series(name){return H().map(s=>{let b=0;(s.exercises||[]).forEach(e=>{if(e.name===name)(e.sets||[]).forEach(x=>b=Math.max(b,Number(x.kg)||0))});return b?{d:new Date(s.date),v:b}:null}).filter(Boolean)}
-function stats(){const h=H();sessionsStat.textContent=h.length;pbStat.textContent=names().filter(n=>pb(n)>0).length;daysStat.textContent=new Set(h.map(s=>(s.date||"").slice(0,10))).size}
-function tabs(){dayTabs.innerHTML="";Object.keys(PROGRAM).forEach(d=>{const b=document.createElement("button");b.className="pill"+(d===currentDay?" active":"");b.textContent=d;b.onclick=()=>{currentDay=d;localStorage.setItem("tracker_day",d);renderWorkout()};dayTabs.appendChild(b)})}
-function seed(ex,d){if(d?.sets?.length)return d.sets;const l=last(currentDay,ex.name);if(!l)return [];return Array.from({length:ex.sets},(_,i)=>({kg:l.sets?.[i]?.kg??l.sets?.[0]?.kg??"",reps:"",done:false}))}
-function renderWorkout(){tabs();const dr=D(),data=PROGRAM[currentDay];workoutBody.innerHTML=`<div class="section-title"><h2>${currentDay} — ${data.title}</h2><span>${new Date().toLocaleDateString()}</span></div>`;data.groups.forEach(g=>{workoutBody.insertAdjacentHTML("beforeend",`<div class="section-title"><h2>${g.name}</h2><span>${g.ex.length} exercises</span></div>`);g.ex.forEach(ex=>{const k=K(currentDay,ex.name),existing=dr[k],sets=seed(ex,existing);if(!existing&&sets.length){dr[k]={sets,note:""};save("training_draft",dr)}let rows="";for(let i=0;i<ex.sets;i++){const v=sets[i]||{};rows+=`<div class="setrow"><div class="small">Set ${i+1}</div><input inputmode="decimal" placeholder="kg" data-k="${k}" data-i="${i}" data-f="kg" value="${v.kg??""}"><input inputmode="numeric" placeholder="reps" data-k="${k}" data-i="${i}" data-f="reps" value="${v.reps??""}"><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`}const l=last(currentDay,ex.name);workoutBody.insertAdjacentHTML("beforeend",`<div class="card"><div class="ex-head"><div class="ex-title-wrap"><img class="ex-thumb" src="${exerciseImage(ex.name)}" alt="${ex.name} exercise illustration"><div><div class="ex-name">${ex.name}</div><div class="target">Target: ${ex.sets} × ${ex.reps}</div></div></div><div class="small">${pb(ex.name)?`PB ${pb(ex.name)}kg`:"No PB"}</div></div><div class="last">${l?`Last: ${l.summary}`:"Last: No saved workout yet"}</div><div class="sets">${rows}</div><div style="margin-top:10px"><input placeholder="Notes (optional)" data-note="${k}" value="${existing?.note||""}"></div></div>`)});});bindWorkout();stats()}
-function bindWorkout(){document.querySelectorAll("input[data-k]").forEach(i=>i.oninput=e=>{const dr=D(),k=e.target.dataset.k,n=+e.target.dataset.i,f=e.target.dataset.f;if(!dr[k])dr[k]={sets:[]};if(!dr[k].sets[n])dr[k].sets[n]={};dr[k].sets[n][f]=e.target.value;save("training_draft",dr)});document.querySelectorAll("[data-note]").forEach(i=>i.oninput=e=>{const dr=D(),k=e.target.dataset.note;if(!dr[k])dr[k]={sets:[]};dr[k].note=e.target.value;save("training_draft",dr)});document.querySelectorAll("[data-tick]").forEach(b=>b.onclick=e=>{const dr=D(),k=e.currentTarget.dataset.tick,n=+e.currentTarget.dataset.i;if(!dr[k])dr[k]={sets:[]};if(!dr[k].sets[n])dr[k].sets[n]={};dr[k].sets[n].done=!dr[k].sets[n].done;save("training_draft",dr);renderWorkout()})}
-saveBtn.onclick=()=>{const dr=D(),data=PROGRAM[currentDay],exercises=[];data.groups.forEach(g=>g.ex.forEach(ex=>{const k=K(currentDay,ex.name),v=dr[k];if(!v)return;const sets=(v.sets||[]).filter(s=>s&&(s.kg!==""||s.reps!==""));if(sets.length)exercises.push({key:k,name:ex.name,sets,note:v.note||"",summary:sets.map(s=>`${s.kg||"—"}kg × ${s.reps||"—"}`).join(" / ")})}));if(!exercises.length){msg.textContent="Enter at least one set first.";return}const h=H();h.push({date:new Date().toISOString(),day:currentDay,title:data.title,exercises});save("training_history",h);Object.keys(dr).forEach(k=>{if(k.startsWith(currentDay+"__"))delete dr[k]});save("training_draft",dr);msg.textContent="Workout saved.";renderWorkout();renderHistory();renderProgress()}
-clearBtn.onclick=()=>{const dr=D();Object.keys(dr).forEach(k=>{if(k.startsWith(currentDay+"__"))delete dr[k]});save("training_draft",dr);msg.textContent="Today's entries cleared.";renderWorkout()}
+
+function last(day,name){
+  const h=H();
+  for(let i=h.length-1;i>=0;i--){
+    const e=(h[i].exercises||[]).find(x=>x.key===K(day,name)||x.name===name);
+    if(e)return e;
+  }
+  return null;
+}
+function exMode(name){
+  const n=(name||"").toLowerCase();
+  if(n.includes("single-leg wall sit") || n.includes("single leg wall sit")) return "seconds";
+  if(n.includes("side step with mini-band") || n.includes("side band walk") || n.includes("side band") ||
+     n.includes("hip abduction") || n.includes("band face pull") || n.includes("face pull")) return "band";
+  return "weight";
+}
+const BAND_LEVELS=["Extra light","Light","Medium","Heavy","Extra heavy"];
+function pb(name){
+  if(exMode(name)!=="weight") return 0;
+  let b=0;
+  H().forEach(s=>(s.exercises||[]).forEach(e=>{
+    if(e.name===name)(e.sets||[]).forEach(x=>b=Math.max(b,Number(x.kg)||0));
+  }));
+  return b;
+}
+function series(name){
+  if(exMode(name)!=="weight") return [];
+  return H().map(s=>{
+    let b=0;
+    (s.exercises||[]).forEach(e=>{
+      if(e.name===name)(e.sets||[]).forEach(x=>b=Math.max(b,Number(x.kg)||0));
+    });
+    return b?{d:new Date(s.date),v:b}:null;
+  }).filter(Boolean);
+}
+function stats(){
+  const h=H();
+  sessionsStat.textContent=h.length;
+  pbStat.textContent=names().filter(n=>pb(n)>0).length;
+  daysStat.textContent=new Set(h.map(s=>(s.date||"").slice(0,10))).size;
+}
+function tabs(){
+  dayTabs.innerHTML="";
+  Object.keys(PROGRAM).forEach(d=>{
+    const b=document.createElement("button");
+    b.className="pill"+(d===currentDay?" active":"");
+    b.textContent=d;
+    b.onclick=()=>{currentDay=d;localStorage.setItem("tracker_day",d);renderWorkout()};
+    dayTabs.appendChild(b);
+  });
+}
+function seed(ex,d){
+  if(d?.sets?.length) return d.sets;
+  const l=last(currentDay,ex.name);
+  if(!l) return [];
+  const mode=exMode(ex.name);
+  return Array.from({length:ex.sets},(_,i)=>{
+    const prev=l.sets?.[i]||l.sets?.[0]||{};
+    if(mode==="band"){
+      return {band:prev.band??"", reps:prev.reps??"", done:false};
+    }
+    if(mode==="seconds"){
+      return {seconds:prev.seconds??prev.reps??"", done:false};
+    }
+    return {kg:prev.kg??"", reps:prev.reps??"", done:false};
+  });
+}
+function rowHtml(ex,k,i,v){
+  const mode=exMode(ex.name);
+  if(mode==="band"){
+    const options=['<option value="">Band</option>'].concat(
+      BAND_LEVELS.map(x=>`<option value="${x}" ${v.band===x?"selected":""}>${x}</option>`)
+    ).join("");
+    return `<div class="setrow"><div class="small">Set ${i+1}</div><select data-k="${k}" data-i="${i}" data-f="band">${options}</select><input inputmode="numeric" placeholder="reps" data-k="${k}" data-i="${i}" data-f="reps" value="${v.reps??""}"><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
+  }
+  if(mode==="seconds"){
+    return `<div class="setrow wallrow"><div class="small">Set ${i+1}</div><input inputmode="numeric" placeholder="seconds" data-k="${k}" data-i="${i}" data-f="seconds" value="${v.seconds??""}"><div class="small unitlabel">seconds</div><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
+  }
+  return `<div class="setrow"><div class="small">Set ${i+1}</div><input inputmode="decimal" placeholder="kg" data-k="${k}" data-i="${i}" data-f="kg" value="${v.kg??""}"><input inputmode="numeric" placeholder="reps" data-k="${k}" data-i="${i}" data-f="reps" value="${v.reps??""}"><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
+}
+function displaySummary(exName,sets){
+  const mode=exMode(exName);
+  if(mode==="band"){
+    return sets.map(x=>`${x.band||"—"} band × ${x.reps||"—"} reps`).join(" / ");
+  }
+  if(mode==="seconds"){
+    return sets.map(x=>`${x.seconds||"—"} sec`).join(" / ");
+  }
+  return sets.map(x=>`${x.kg||"—"}kg × ${x.reps||"—"}`).join(" / ");
+}
+function renderWorkout(){
+  tabs();
+  const dr=D(),data=PROGRAM[currentDay];
+  workoutBody.innerHTML=`<div class="section-title"><h2>${currentDay} — ${data.title}</h2><span>${new Date().toLocaleDateString()}</span></div>`;
+  data.groups.forEach(g=>{
+    workoutBody.insertAdjacentHTML("beforeend",`<div class="section-title"><h2>${g.name}</h2><span>${g.ex.length} exercises</span></div>`);
+    g.ex.forEach(ex=>{
+      const k=K(currentDay,ex.name),existing=dr[k],sets=seed(ex,existing);
+      if(!existing&&sets.length){dr[k]={sets,note:""};save("training_draft",dr)}
+      let rows="";
+      for(let i=0;i<ex.sets;i++) rows+=rowHtml(ex,k,i,sets[i]||{});
+      const l=last(currentDay,ex.name), mode=exMode(ex.name);
+      const badge=mode==="weight"?(pb(ex.name)?`PB ${pb(ex.name)}kg`:"No PB"):(mode==="band"?"Resistance band":"Timed hold");
+      workoutBody.insertAdjacentHTML("beforeend",
+        `<div class="card"><div class="ex-head"><div class="ex-title-wrap"><img class="ex-thumb" src="${exerciseImage(ex.name)}" alt="${ex.name} exercise illustration"><div><div class="ex-name">${ex.name}</div><div class="target">Target: ${ex.sets} × ${ex.reps}</div></div></div><div class="small">${badge}</div></div><div class="last">${l?`Last: ${l.summary}`:"Last: No saved workout yet"}</div><div class="sets">${rows}</div><div style="margin-top:10px"><input placeholder="Notes (optional)" data-note="${k}" value="${existing?.note||""}"></div></div>`
+      );
+    });
+  });
+  bindWorkout();stats();
+}
+function bindWorkout(){
+  document.querySelectorAll("input[data-k],select[data-k]").forEach(i=>i.oninput=e=>{
+    const dr=D(),k=e.target.dataset.k,n=+e.target.dataset.i,f=e.target.dataset.f;
+    if(!dr[k])dr[k]={sets:[]};
+    if(!dr[k].sets[n])dr[k].sets[n]={};
+    dr[k].sets[n][f]=e.target.value;
+    save("training_draft",dr);
+  });
+  document.querySelectorAll("[data-note]").forEach(i=>i.oninput=e=>{
+    const dr=D(),k=e.target.dataset.note;
+    if(!dr[k])dr[k]={sets:[]};
+    dr[k].note=e.target.value;save("training_draft",dr);
+  });
+  document.querySelectorAll("[data-tick]").forEach(b=>b.onclick=e=>{
+    const dr=D(),k=e.currentTarget.dataset.tick,n=+e.currentTarget.dataset.i;
+    if(!dr[k])dr[k]={sets:[]};
+    if(!dr[k].sets[n])dr[k].sets[n]={};
+    dr[k].sets[n].done=!dr[k].sets[n].done;
+    save("training_draft",dr);renderWorkout();
+  });
+}
+saveBtn.onclick=()=>{
+  const dr=D(),data=PROGRAM[currentDay],exercises=[];
+  data.groups.forEach(g=>g.ex.forEach(ex=>{
+    const k=K(currentDay,ex.name),v=dr[k];
+    if(!v)return;
+    const mode=exMode(ex.name);
+    const sets=(v.sets||[]).filter(x=>{
+      if(!x)return false;
+      if(mode==="band") return (x.band??"")!=="" || (x.reps??"")!=="";
+      if(mode==="seconds") return (x.seconds??"")!=="";
+      return (x.kg??"")!=="" || (x.reps??"")!=="";
+    });
+    if(sets.length) exercises.push({
+      key:k,name:ex.name,sets,note:v.note||"",summary:displaySummary(ex.name,sets)
+    });
+  }));
+  if(!exercises.length){msg.textContent="Enter at least one set first.";return}
+  const h=H();
+  h.push({date:new Date().toISOString(),day:currentDay,title:data.title,exercises});
+  save("training_history",h);
+  Object.keys(dr).forEach(k=>{if(k.startsWith(currentDay+"__"))delete dr[k]});
+  save("training_draft",dr);
+  msg.textContent="Workout saved.";
+  renderWorkout();renderHistory();renderProgress();
+}
+clearBtn.onclick=()=>{
+  const dr=D();
+  Object.keys(dr).forEach(k=>{if(k.startsWith(currentDay+"__"))delete dr[k]});
+  save("training_draft",dr);
+  msg.textContent="Today's entries cleared.";
+  renderWorkout();
+}
 function renderHistory(){const h=H().slice().reverse();historyList.innerHTML=h.length?"":'<div class="card">No saved workouts yet.</div>';h.forEach(s=>historyList.insertAdjacentHTML("beforeend",`<div class="session"><b>${s.day} — ${s.title}</b><div class="small">${new Date(s.date).toLocaleString()}</div><div style="margin-top:8px">${s.exercises.map(e=>`<div style="margin:7px 0"><strong>${e.name}</strong><div class="small">${e.summary}</div></div>`).join("")}</div></div>`))}
 function renderProgress(){const cur=progressSelect.value;progressSelect.innerHTML=names().map(n=>`<option>${n}</option>`).join("");if(cur&&names().includes(cur))progressSelect.value=cur;const n=progressSelect.value;if(!n)return;const s=series(n),mx=Math.max(...s.map(x=>x.v),1);progressCard.innerHTML=`<div class="card"><div class="ex-head"><div><div class="ex-name">${n}</div><div class="small">${s.length} recorded sessions</div></div><div><strong>${pb(n)||"—"}${pb(n)?" kg":""}</strong><div class="small">best weight</div></div></div><div class="chart">${s.length?`<div class="barwrap">${s.slice(-8).map(x=>`<div class="bar" style="height:${Math.max(8,Math.round(x.v/mx*100))}%"></div>`).join("")}</div><div class="labels">${s.slice(-8).map(x=>`<span>${x.d.toLocaleDateString(undefined,{month:"short",day:"numeric"})}</span>`).join("")}</div>`:'<div class="small" style="padding:20px">Save workouts to build your graph.</div>'}</div></div>`}
 progressSelect.onchange=renderProgress;
@@ -131,7 +300,8 @@ function spBackupKeys(){
     "training_history",
     "training_program_v2",
     "training_draft",
-    "sp_trainer_v4_rehab_migrated"
+    "sp_trainer_v4_rehab_migrated",
+    "sp_trainer_v7_rehab_fields_migrated"
   ];
 }
 
@@ -139,7 +309,7 @@ function exportSPBackup(){
   try{
     const data = {
       app: "SP Trainer",
-      version: 6,
+      version: 7.1,
       exportedAt: new Date().toISOString(),
       storage: {}
     };
