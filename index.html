@@ -63,6 +63,15 @@
  .ex-title-wrap{min-width:0}.ex-name{overflow-wrap:anywhere}
  .timerbar{align-items:flex-start!important}
 }
+
+.selected-progress{margin-top:4px!important}.selected-label{font-size:9px;font-weight:900;letter-spacing:.12em;color:var(--accent);margin-bottom:8px}
+.focus-section{display:grid;gap:10px;margin-top:12px;margin-bottom:20px}
+.focus-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:13px}
+.focus-title{display:flex;gap:7px;align-items:center;font-size:14px;margin-bottom:7px}
+.focus-list{display:grid}.focus-row{display:grid;grid-template-columns:25px minmax(0,1fr);gap:8px;padding:8px 0;border-top:1px solid var(--border);align-items:start}.focus-row:first-child{border-top:0}
+.focus-rank{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:var(--panel2);font-size:10px;font-weight:900}
+.focus-row b{display:block;font-size:12px}.focus-row small{display:block;font-size:10px;color:var(--muted);margin-top:2px}
+.focus-empty{font-size:11px;color:var(--muted);padding:4px 0}
 </style></head><body>
 <div class="wrap"><div class="brand-head"><img class="brand-icon" src="icon-192.png" alt="SP Trainer icon"><div class="brand-copy"><h1>SP Trainer</h1><p class="sub">Track. Train. Progress.</p></div></div>
 <div class="nav"><button class="pill active" data-view="workout">Workout</button><button class="pill" data-view="history">History</button><button class="pill" data-view="progress">Progress</button><button class="pill" data-view="program">Program</button>
@@ -251,13 +260,13 @@ function exerciseGrowth(name){
  return {name,mode,first,latest,best,change,score,label};
 }
 function topGrowth(){
- return names().map(exerciseGrowth).filter(x=>x&&x.change>0).sort((a,b)=>b.score-a.score).slice(0,10);
+ return names().map(exerciseGrowth).filter(x=>x&&x.change>0).sort((a,b)=>b.score-a.score).slice(0,5);
 }
 function topGrowthHtml(){
  const top=topGrowth();
- if(!top.length)return `<div class="top10-card"><div class="top10-title">Top 10 exercise growth</div><div class="small">Complete at least two recorded sessions for an exercise to build your growth ranking.</div></div>`;
+ if(!top.length)return `<div class="top10-card"><div class="top10-title">Top 5 exercise growth</div><div class="small">Complete at least two recorded sessions for an exercise to build your growth ranking.</div></div>`;
  const max=Math.max(...top.map(x=>x.score),1);
- return `<div class="top10-card"><div class="top10-head"><div><div class="top10-title">Top 10 exercise growth</div><div class="small">Ranked by improvement from your first to latest recorded session</div></div><div class="top10-badge">${top.length} improving</div></div>
+ return `<div class="top10-card"><div class="top10-head"><div><div class="top10-title">Top 5 exercise growth</div><div class="small">Ranked by improvement from your first to latest recorded session</div></div><div class="top10-badge">${top.length} improving</div></div>
  <div class="top10-list">${top.map((x,i)=>`<div class="top10-row">
   <div class="rank">${i+1}</div><div class="top10-main"><div class="top10-name">${x.name}</div>
   <div class="top10-track"><div style="width:${Math.max(5,x.score/max*100)}%"></div></div>
@@ -269,7 +278,7 @@ function stats(){
   const h=H();
   sessionsStat.textContent=h.length;
   pbStat.textContent=names().filter(n=>pb(n)>0).length;
-  daysStat.textContent=new Set(h.map(s=>(s.date||"").slice(0,10))).size;
+  daysStat.textContent=new Set(h.map(s=>(s.date||"").slice(0,5))).size;
 }
 function tabs(){
   dayTabs.innerHTML="";
@@ -354,23 +363,44 @@ function latestTwo(name){
  H().forEach(sess=>{const e=(sess.exercises||[]).find(x=>x.name===name);if(e)arr.push(e)});
  return arr.slice(-2);
 }
-function progressInsightHtml(){
- const ready=[],plateau=[],up=[];
+function focusLists(){
+ const ready=[],trend=[],plateau=[];
  names().forEach(n=>{
-  const ex=programExercise(n),pts=series(n);if(!ex||pts.length<2)return;
-  const mode=exMode(n),recent=pts.slice(-4),first=recent[0]?.v,lastv=recent[recent.length-1]?.v;
-  if(lastv>first)up.push(n);
-  if(recent.length>=4&&recent.every(x=>x.v===recent[0].v))plateau.push(n);
-  const l=latestTwo(n).slice(-1)[0];
-  if(l&&mode!=="seconds"){
-   const r=repRange(ex),sets=l.sets||[];
-   if(r.max&&sets.length>=ex.sets&&sets.every(x=>Number(x.reps)>=r.max))ready.push(n);
+  const ex=programExercise(n),pts=series(n); if(!ex||pts.length<2)return;
+  const mode=exMode(n),recent=pts.slice(-5),latest=pts[pts.length-1]?.v||0;
+  const growth=exerciseGrowth(n);
+  const lastEx=latestTwo(n).slice(-1)[0],range=repRange(ex);
+  if(lastEx&&mode!=="seconds"){
+   const sets=lastEx.sets||[];
+   const valid=sets.filter(x=>mode==="band"?x.band&&Number(x.reps)>0:Number(x.kg)>0&&Number(x.reps)>0);
+   if(range.max&&valid.length>=ex.sets&&valid.every(x=>Number(x.reps)>=range.max)){
+    ready.push({name:n,score:growth?.score||0,detail:mode==="band"?"Move up one band level":"Increase weight next session"});
+   }
+  }
+  if(recent.length>=2){
+   const first=recent[0].v,last=recent[recent.length-1].v;
+   if(last>first)trend.push({name:n,score:growth?.score||0,detail:`${fmtProgressValue(n,first)} → ${fmtProgressValue(n,last)}`});
+  }
+  if(recent.length>=4){
+   const flat=recent.every(x=>x.v===recent[0].v);
+   if(flat)plateau.push({name:n,score:recent.length,detail:`No load/resistance change across ${recent.length} recent sessions`});
   }
  });
- return `<div class="insight-grid">
-  <div class="insight-card"><b>${ready.length}</b><span>Ready to increase</span><small>${ready.slice(0,3).join(" • ")||"Keep building reps"}</small></div>
-  <div class="insight-card"><b>${up.length}</b><span>Trending up</span><small>${up.slice(0,3).join(" • ")||"More sessions needed"}</small></div>
-  <div class="insight-card"><b>${plateau.length}</b><span>Possible plateaus</span><small>${plateau.slice(0,3).join(" • ")||"None detected"}</small></div>
+ return {
+  ready:ready.sort((a,b)=>b.score-a.score).slice(0,5),
+  trend:trend.sort((a,b)=>b.score-a.score).slice(0,5),
+  plateau:plateau.sort((a,b)=>b.score-a.score).slice(0,5)
+ };
+}
+function focusListHtml(title,icon,items,empty){
+ return `<div class="focus-card"><div class="focus-title"><span>${icon}</span><b>${title}</b></div>${items.length?`<div class="focus-list">${items.map((x,i)=>`<div class="focus-row"><span class="focus-rank">${i+1}</span><div><b>${x.name}</b><small>${x.detail}</small></div></div>`).join("")}</div>`:`<div class="focus-empty">${empty}</div>`}</div>`;
+}
+function progressInsightHtml(){
+ const f=focusLists();
+ return `<div class="focus-section">
+ ${focusListHtml("Top 5 ready to increase","⬆️",f.ready,"No exercises are ready to increase yet.")}
+ ${focusListHtml("Top 5 trending up","📈",f.trend,"More workout history is needed.")}
+ ${focusListHtml("Top 5 plateaus / focus","🎯",f.plateau,"No plateaus detected — keep going.")}
  </div>`;
 }
 function rowHtml(ex,k,i,v){
@@ -499,8 +529,7 @@ function renderProgress(){
  progressSelect.innerHTML=filtered.map(n=>`<option>${n}</option>`).join("");
  if(cur&&filtered.includes(cur))progressSelect.value=cur;
  const n=progressSelect.value;
- progressInsights.innerHTML=progressInsightHtml();
- if(!n){progressCard.innerHTML='<div class="card">No exercises in this body-part section yet.</div>';return}
+ if(!n){progressCard.innerHTML='<div class="card">No exercises in this body-part section yet.</div>';progressInsights.innerHTML=progressInsightHtml();return}
  const mode=exMode(n),pts=series(n),recent=pts.slice(-8),maxScale=mode==="band"?BAND_LEVELS.length:Math.max(...pts.map(x=>x.v),1);
  let summary="";
  if(pts.length){
@@ -511,7 +540,9 @@ function renderProgress(){
   summary=`<div class="progress-summary"><div class="progress-metric"><span>Starting</span><b>${fmtProgressValue(n,first)}</b></div><div class="progress-metric"><span>Latest</span><b>${fmtProgressValue(n,latest)}</b></div><div class="progress-metric"><span>Personal best</span><b>${fmtProgressValue(n,best)}</b></div><div class="progress-metric"><span>Overall change</span><b>${changeText}</b></div></div><div class="progress-trend"><b>${change>0?"Progressing ↑":change<0?"Below starting level ↓":"Holding steady →"}</b><span>${subText}</span></div>`;
  }
  const best=pb(n),ex=programExercise(n),e1=exMode(n)==="weight"?strengthPB(n):0;
- progressCard.innerHTML=`${topGrowthHtml()}<div class="card progress-exercise-card"><div class="ex-head"><div><div class="ex-name">${n}</div><div class="small">${bodyPart(n)} • ${pts.length} recorded sessions • ${mode==="band"?"Band resistance":mode==="seconds"?"Hold duration":"Weight"}</div></div><div><strong>${best?fmtProgressValue(n,best):"—"}</strong><div class="small">${e1?`e1RM ${e1.toFixed(1)} kg`:"personal best"}</div></div></div><div class="chart">${recent.length?`<div class="barwrap">${recent.map(x=>`<div class="barcol"><div class="barvalue">${fmtProgressValue(n,x.v)}</div><div class="bar" style="height:${Math.max(8,Math.round(x.v/maxScale*100))}%"></div></div>`).join("")}</div><div class="labels">${recent.map(x=>`<span>${x.d.toLocaleDateString(undefined,{month:"short",day:"numeric"})}</span>`).join("")}</div>`:'<div class="small" style="padding:20px">Save workouts to build your graph.</div>'}</div>${summary}${ex?`<div class="progression-tip">🎯 ${progressionAdvice(ex)}</div>`:""}</div>`;
+ const graph=`<div class="card progress-exercise-card selected-progress"><div class="selected-label">SELECTED EXERCISE</div><div class="ex-head"><div><div class="ex-name">${n}</div><div class="small">${bodyPart(n)} • ${pts.length} recorded sessions • ${mode==="band"?"Band resistance":mode==="seconds"?"Hold duration":"Weight"}</div></div><div><strong>${best?fmtProgressValue(n,best):"—"}</strong><div class="small">${e1?`e1RM ${e1.toFixed(1)} kg`:"personal best"}</div></div></div><div class="chart">${recent.length?`<div class="barwrap">${recent.map(x=>`<div class="barcol"><div class="barvalue">${fmtProgressValue(n,x.v)}</div><div class="bar" style="height:${Math.max(8,Math.round(x.v/maxScale*100))}%"></div></div>`).join("")}</div><div class="labels">${recent.map(x=>`<span>${x.d.toLocaleDateString(undefined,{month:"short",day:"numeric"})}</span>`).join("")}</div>`:'<div class="small" style="padding:20px">Save workouts to build your graph.</div>'}</div>${summary}${ex?`<div class="progression-tip">🎯 ${progressionAdvice(ex)}</div>`:""}</div>`;
+ progressCard.innerHTML=graph+topGrowthHtml();
+ progressInsights.innerHTML=progressInsightHtml();
 }
 progressSelect.onchange=renderProgress;bodyPartSelect.onchange=renderProgress;
 function editTabs(){editDayTabs.innerHTML="";Object.keys(PROGRAM).forEach(d=>{const b=document.createElement("button");b.className="pill"+(d===editDay?" active":"");b.textContent=d;b.onclick=()=>{editDay=d;renderEditor()};editDayTabs.appendChild(b)})}
@@ -536,7 +567,7 @@ function exportSPBackup(){
   try{
     const data = {
       app: "SP Trainer",
-      version: 10.1,
+      version: 10.2,
       exportedAt: new Date().toISOString(),
       storage: {}
     };
