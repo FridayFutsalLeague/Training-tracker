@@ -14,14 +14,39 @@
 .brand-copy h1{margin:0;font-size:28px;line-height:1.05}
 .brand-copy .sub{margin:4px 0 0}
 
-.unitlabel{display:flex;align-items:center;justify-content:center;min-height:44px;background:var(--panel2);border:1px solid var(--border);border-radius:10px}\n.progress-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}.progress-metric{background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:12px}.progress-metric span{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}.progress-metric b{font-size:19px}.progress-trend{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px;background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:12px}.progress-trend span{font-size:12px;color:var(--muted)}.barcol{height:100%;flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;min-width:0}.barcol .bar{width:72%}.barvalue{font-size:10px;font-weight:700;margin-bottom:4px;white-space:nowrap}</style></head><body>
+.unitlabel{display:flex;align-items:center;justify-content:center;min-height:44px;background:var(--panel2);border:1px solid var(--border);border-radius:10px}\n.progress-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}.progress-metric{background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:12px}.progress-metric span{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}.progress-metric b{font-size:19px}.progress-trend{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px;background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:12px}.progress-trend span{font-size:12px;color:var(--muted)}.barcol{height:100%;flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;min-width:0}.barcol .bar{width:72%}.barvalue{font-size:10px;font-weight:700;margin-bottom:4px;white-space:nowrap}
+.top10-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:14px}
+.top10-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
+.top10-title{font-size:17px;font-weight:800}
+.top10-badge{font-size:11px;font-weight:800;background:var(--accent);color:white;border-radius:999px;padding:5px 8px;white-space:nowrap}
+.top10-list{display:grid;gap:7px}
+.top10-row{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:9px;align-items:center;padding:8px 0;border-top:1px solid var(--border)}
+.top10-row:first-child{border-top:0}
+.rank{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--panel2);font-size:12px;font-weight:800}
+.top10-name{font-size:13px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top10-track{height:6px;background:var(--border);border-radius:999px;overflow:hidden;margin:5px 0}
+.top10-track>div{height:100%;background:var(--accent);border-radius:999px}
+.top10-change{font-size:12px;font-weight:800;white-space:nowrap}
+.progress-exercise-card{margin-top:12px}
+
+.progress-filters{display:grid;grid-template-columns:1fr 1.5fr;gap:10px;margin-bottom:12px}
+.progression-tip{margin:10px 0;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--panel2);font-size:12px;font-weight:700}
+.stepfield{display:grid;grid-template-columns:32px minmax(44px,1fr) 32px;align-items:center;gap:4px;min-width:0}.stepfield button{min-height:38px;padding:0;border-radius:9px}.stepfield input{text-align:center;min-width:0}.stepfield.wide{grid-template-columns:40px minmax(60px,1fr) 40px}
+.smartrow{gap:6px}
+.timerbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 14px;padding:10px 12px;background:var(--panel2);border:1px solid var(--border);border-radius:12px}.timerbar label{display:flex;align-items:center;gap:8px;font-size:12px}.timerbar select{width:auto}.timerbar span{font-weight:800;font-size:13px}
+.insight-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}.insight-card{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:10px;min-width:0}.insight-card b{display:block;font-size:20px}.insight-card span{display:block;font-size:11px;font-weight:800;margin:2px 0}.insight-card small{display:block;font-size:9px;color:var(--muted);overflow:hidden;text-overflow:ellipsis}
+.scorecard{display:flex;flex-direction:column;gap:4px}.scorecard b{font-size:14px}.scorecard span{font-size:12px}
+@media(max-width:520px){.progress-filters{grid-template-columns:1fr}.insight-grid{grid-template-columns:1fr 1fr 1fr}.smartrow{grid-template-columns:auto 1fr}.smartrow>.stepfield{grid-column:auto}.smartrow>.tick{grid-column:auto}.stepfield button{min-width:32px;padding:0 4px}}
+</style></head><body>
 <div class="wrap"><div class="brand-head"><img class="brand-icon" src="icon-192.png" alt="SP Trainer icon"><div class="brand-copy"><h1>SP Trainer</h1><p class="sub">Track. Train. Progress.</p></div></div>
 <div class="nav"><button class="pill active" data-view="workout">Workout</button><button class="pill" data-view="history">History</button><button class="pill" data-view="progress">Progress</button><button class="pill" data-view="program">Program</button>
 <button class="pill" data-view="help">Help</button></div>
 <div class="stats"><div class="stat"><b id="sessionsStat">0</b><span>saved sessions</span></div><div class="stat"><b id="pbStat">0</b><span>exercise PBs</span></div><div class="stat"><b id="daysStat">0</b><span>days trained</span></div></div>
-<section id="workout" class="view active"><div class="days" id="dayTabs"></div><div id="workoutBody"></div><div class="actions"><button class="secondary" id="clearBtn">Clear today</button><button class="main" id="saveBtn">Finish & Save</button></div><div id="msg" class="msg"></div></section>
+<section id="workout" class="view active"><div class="days" id="dayTabs"></div><div class="timerbar"><label>Rest timer <select id="restTimerSelect"><option value="0">Off</option><option value="60">60 sec</option><option value="90">90 sec</option><option value="120">2 min</option><option value="180">3 min</option></select></label><span id="restTimerDisplay"></span></div><div id="workoutBody"></div><div class="actions"><button class="secondary" id="clearBtn">Clear today</button><button class="main" id="saveBtn">Finish & Save</button></div><div id="msg" class="msg"></div></section>
 <section id="history" class="view"><div class="section-title"><h2>Workout History</h2><span>Most recent first</span></div><div id="historyList"></div></section>
-<section id="progress" class="view"><div class="section-title"><h2>Progress</h2><span>Best weight by session</span></div><select id="progressSelect"></select><div id="progressCard"></div></section>
+<section id="progress" class="view"><div class="section-title"><h2>Progress</h2><span>Strength & resistance trends</span></div>
+<div class="progress-filters"><select id="bodyPartSelect"></select><select id="progressSelect"></select></div>
+<div id="progressInsights"></div><div id="progressCard"></div></section>
 <section id="program" class="view"><div class="section-title"><h2>Edit Program</h2><span>Save without rebuilding</span></div><div class="days" id="editDayTabs"></div><div id="programEditor"></div><div class="actions"><button class="secondary" id="resetProgram">Reset default</button></div></section>
 
 <section id="help" class="view">
@@ -30,7 +55,7 @@
   <div class="help-card"><h3><span class="help-step">2</span>History</h3><p>Review your saved sessions, including the weight and reps you recorded for each exercise.</p></div>
   <div class="help-card"><h3><span class="help-step">3</span>Progress</h3><p>Select an exercise to see your best recorded weight and a simple graph of your recent progress.</p></div>
   <div class="help-card"><h3><span class="help-step">4</span>Program</h3><p>Change exercise names, sets and rep targets, or add and remove exercises without rebuilding the app.</p></div>
-  <div class="help-card"><h3><span class="help-step">5</span>PBs</h3><p>Your current PB is the highest weight you have saved for that exercise. We can expand this later to include rep PBs and estimated strength PBs.</p></div>
+  <div class="help-card"><h3><span class="help-step">5</span>PBs</h3><p>SP Trainer tracks your heaviest weight and estimated 1RM, and uses your rep range and previous session to suggest when to add reps or increase resistance.</p></div>
   <div class="help-card"><h3>Exercise pictures</h3><p>The small illustrations are quick visual reminders of each movement. For your knee rehabilitation exercises, continue to follow the technique and dosage given by your physio.</p></div>
 
 <div class="card" style="margin-top:18px">
@@ -151,23 +176,68 @@ function exMode(name){
   return "weight";
 }
 const BAND_LEVELS=["Extra light","Light","Medium","Heavy","Extra heavy"];
+function bandScore(label){return Math.max(0,BAND_LEVELS.indexOf(label)+1)}
+function bandLabel(v){return BAND_LEVELS[Math.max(0,Math.min(BAND_LEVELS.length-1,Math.round(v)-1))]||"—"}
 function pb(name){
-  if(exMode(name)!=="weight") return 0;
-  let b=0;
-  H().forEach(s=>(s.exercises||[]).forEach(e=>{
-    if(e.name===name)(e.sets||[]).forEach(x=>b=Math.max(b,Number(x.kg)||0));
-  }));
-  return b;
+ const mode=exMode(name); let best=0;
+ H().forEach(sess=>(sess.exercises||[]).forEach(e=>{
+  if(e.name!==name)return;
+  (e.sets||[]).forEach(x=>{
+   if(mode==="weight")best=Math.max(best,Number(x.kg)||0);
+   else if(mode==="band")best=Math.max(best,bandScore(x.band));
+   else if(mode==="seconds")best=Math.max(best,Number(x.seconds)||0);
+  });
+ }));
+ return best;
 }
 function series(name){
-  if(exMode(name)!=="weight") return [];
-  return H().map(s=>{
-    let b=0;
-    (s.exercises||[]).forEach(e=>{
-      if(e.name===name)(e.sets||[]).forEach(x=>b=Math.max(b,Number(x.kg)||0));
-    });
-    return b?{d:new Date(s.date),v:b}:null;
-  }).filter(Boolean);
+ const mode=exMode(name);
+ return H().map(sess=>{
+  let best=0;
+  (sess.exercises||[]).forEach(e=>{
+   if(e.name!==name)return;
+   (e.sets||[]).forEach(x=>{
+    if(mode==="weight")best=Math.max(best,Number(x.kg)||0);
+    else if(mode==="band")best=Math.max(best,bandScore(x.band));
+    else if(mode==="seconds")best=Math.max(best,Number(x.seconds)||0);
+   });
+  });
+  return best?{d:new Date(sess.date),v:best}:null;
+ }).filter(Boolean);
+}
+function fmtProgressValue(name,v){
+ const mode=exMode(name);
+ if(mode==="band")return bandLabel(v);
+ if(mode==="seconds")return `${v} sec`;
+ return `${v} kg`;
+}
+function exerciseGrowth(name){
+ const pts=series(name); if(pts.length<2)return null;
+ const mode=exMode(name),first=pts[0].v,latest=pts[pts.length-1].v,best=Math.max(...pts.map(x=>x.v));
+ let score=0,change=latest-first,label="";
+ if(mode==="band"){
+   score=(change/(BAND_LEVELS.length-1))*100;
+   label=change>0?`+${change} band level${change===1?"":"s"}`:`${change} band levels`;
+ }else{
+   score=first?change/first*100:0;
+   label=`${change>0?"+":""}${score.toFixed(1)}%`;
+ }
+ return {name,mode,first,latest,best,change,score,label};
+}
+function topGrowth(){
+ return names().map(exerciseGrowth).filter(x=>x&&x.change>0).sort((a,b)=>b.score-a.score).slice(0,10);
+}
+function topGrowthHtml(){
+ const top=topGrowth();
+ if(!top.length)return `<div class="top10-card"><div class="top10-title">Top 10 exercise growth</div><div class="small">Complete at least two recorded sessions for an exercise to build your growth ranking.</div></div>`;
+ const max=Math.max(...top.map(x=>x.score),1);
+ return `<div class="top10-card"><div class="top10-head"><div><div class="top10-title">Top 10 exercise growth</div><div class="small">Ranked by improvement from your first to latest recorded session</div></div><div class="top10-badge">${top.length} improving</div></div>
+ <div class="top10-list">${top.map((x,i)=>`<div class="top10-row">
+  <div class="rank">${i+1}</div><div class="top10-main"><div class="top10-name">${x.name}</div>
+  <div class="top10-track"><div style="width:${Math.max(5,x.score/max*100)}%"></div></div>
+  <div class="small">${fmtProgressValue(x.name,x.first)} → ${fmtProgressValue(x.name,x.latest)}</div></div>
+  <div class="top10-change">${x.label}</div>
+ </div>`).join("")}</div></div>`;
 }
 function stats(){
   const h=H();
@@ -201,18 +271,92 @@ function seed(ex,d){
     return {kg:prev.kg??"", reps:prev.reps??"", done:false};
   });
 }
+
+function repRange(ex){
+ const nums=String(ex?.reps||"").match(/\d+/g)?.map(Number)||[];
+ if(!nums.length)return {min:0,max:0};
+ return {min:nums[0],max:nums.length>1?nums[1]:nums[0]};
+}
+function bodyPart(name){
+ const n=(name||"").toLowerCase();
+ if(n.includes("bench press")||n.includes("chest fly")||n.includes("dumbbell press")&&n.includes("flat")||n.includes("incline dumbbell")||n.includes("dip"))return "Chest";
+ if(n.includes("row")||n.includes("pullover"))return "Back";
+ if(n.includes("shoulder press")||n.includes("lateral raise")||n.includes("rear delt")||n.includes("face pull"))return "Shoulders";
+ if(n.includes("curl"))return "Biceps";
+ if(n.includes("tricep")||n.includes("skull crusher")||n.includes("close-grip")||n.includes("close grip"))return "Triceps";
+ if(n.includes("wall sit")||n.includes("squat")||n.includes("romanian deadlift")||n.includes("rdl")||n.includes("glute bridge")||n.includes("step down")||n.includes("hip abduction")||n.includes("side step")||n.includes("band walk"))return "Knee / Legs";
+ return "Other";
+}
+function programExercise(name){
+ for(const d of Object.values(PROGRAM))for(const g of d.groups)for(const ex of g.ex)if(ex.name===name)return ex;
+ return null;
+}
+function progressionAdvice(ex){
+ const prev=last(currentDay,ex.name),mode=exMode(ex.name),range=repRange(ex);
+ if(!prev)return "First session — establish your baseline.";
+ const sets=prev.sets||[];
+ if(mode==="weight"){
+  const valid=sets.filter(x=>Number(x.kg)>0&&Number(x.reps)>0);
+  if(!valid.length)return "Log your sets to build a progression target.";
+  const same=valid.every(x=>Number(x.kg)===Number(valid[0].kg));
+  const allTop=same&&range.max&&valid.length>=ex.sets&&valid.every(x=>Number(x.reps)>=range.max);
+  if(allTop)return `Ready to increase weight ↑ You hit ${range.max}+ reps across all sets.`;
+  const total=valid.reduce((a,x)=>a+(Number(x.reps)||0),0);
+  return `Beat last time: aim for more than ${total} total reps at ${valid[0].kg} kg.`;
+ }
+ if(mode==="band"){
+  const valid=sets.filter(x=>x.band&&Number(x.reps)>0);
+  if(!valid.length)return "Log your band and reps to build a target.";
+  const top=range.max&&valid.length>=ex.sets&&valid.every(x=>Number(x.reps)>=range.max);
+  if(top)return "Ready to move up one resistance level ↑";
+  return `Beat last time: add a rep while keeping your current band.`;
+ }
+ const best=Math.max(...sets.map(x=>Number(x.seconds)||0),0);
+ return best?`Beat last time: aim for more than ${best} seconds.`:"Log your hold time to build a target.";
+}
+function estimated1RM(kg,reps){kg=Number(kg)||0;reps=Number(reps)||0;return kg&&reps?kg*(1+reps/30):0}
+function strengthPB(name){
+ let best=0;
+ H().forEach(sess=>(sess.exercises||[]).forEach(e=>{
+  if(e.name===name)(e.sets||[]).forEach(x=>best=Math.max(best,estimated1RM(x.kg,x.reps)));
+ }));
+ return best;
+}
+function sessionVolume(exercise){return (exercise?.sets||[]).reduce((a,x)=>a+(Number(x.kg)||0)*(Number(x.reps)||0),0)}
+function latestTwo(name){
+ const arr=[];
+ H().forEach(sess=>{const e=(sess.exercises||[]).find(x=>x.name===name);if(e)arr.push(e)});
+ return arr.slice(-2);
+}
+function progressInsightHtml(){
+ const ready=[],plateau=[],up=[];
+ names().forEach(n=>{
+  const ex=programExercise(n),pts=series(n);if(!ex||pts.length<2)return;
+  const mode=exMode(n),recent=pts.slice(-4),first=recent[0]?.v,lastv=recent[recent.length-1]?.v;
+  if(lastv>first)up.push(n);
+  if(recent.length>=4&&recent.every(x=>x.v===recent[0].v))plateau.push(n);
+  const l=latestTwo(n).slice(-1)[0];
+  if(l&&mode!=="seconds"){
+   const r=repRange(ex),sets=l.sets||[];
+   if(r.max&&sets.length>=ex.sets&&sets.every(x=>Number(x.reps)>=r.max))ready.push(n);
+  }
+ });
+ return `<div class="insight-grid">
+  <div class="insight-card"><b>${ready.length}</b><span>Ready to increase</span><small>${ready.slice(0,3).join(" • ")||"Keep building reps"}</small></div>
+  <div class="insight-card"><b>${up.length}</b><span>Trending up</span><small>${up.slice(0,3).join(" • ")||"More sessions needed"}</small></div>
+  <div class="insight-card"><b>${plateau.length}</b><span>Possible plateaus</span><small>${plateau.slice(0,3).join(" • ")||"None detected"}</small></div>
+ </div>`;
+}
 function rowHtml(ex,k,i,v){
-  const mode=exMode(ex.name);
-  if(mode==="band"){
-    const options=['<option value="">Band</option>'].concat(
-      BAND_LEVELS.map(x=>`<option value="${x}" ${v.band===x?"selected":""}>${x}</option>`)
-    ).join("");
-    return `<div class="setrow"><div class="small">Set ${i+1}</div><select data-k="${k}" data-i="${i}" data-f="band">${options}</select><input inputmode="numeric" placeholder="reps" data-k="${k}" data-i="${i}" data-f="reps" value="${v.reps??""}"><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
-  }
-  if(mode==="seconds"){
-    return `<div class="setrow wallrow"><div class="small">Set ${i+1}</div><input inputmode="numeric" placeholder="seconds" data-k="${k}" data-i="${i}" data-f="seconds" value="${v.seconds??""}"><div class="small unitlabel">seconds</div><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
-  }
-  return `<div class="setrow"><div class="small">Set ${i+1}</div><input inputmode="decimal" placeholder="kg" data-k="${k}" data-i="${i}" data-f="kg" value="${v.kg??""}"><input inputmode="numeric" placeholder="reps" data-k="${k}" data-i="${i}" data-f="reps" value="${v.reps??""}"><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
+ const mode=exMode(ex.name);
+ if(mode==="band"){
+  const options=['<option value="">Band</option>'].concat(BAND_LEVELS.map(x=>`<option value="${x}" ${v.band===x?"selected":""}>${x}</option>`)).join("");
+  return `<div class="setrow smartrow"><div class="small">Set ${i+1}</div><select data-k="${k}" data-i="${i}" data-f="band">${options}</select><div class="stepfield"><button type="button" data-step="-1" data-field="reps" data-k="${k}" data-i="${i}">−</button><input inputmode="numeric" placeholder="reps" data-k="${k}" data-i="${i}" data-f="reps" value="${v.reps??""}"><button type="button" data-step="1" data-field="reps" data-k="${k}" data-i="${i}">+</button></div><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
+ }
+ if(mode==="seconds"){
+  return `<div class="setrow smartrow"><div class="small">Set ${i+1}</div><div class="stepfield wide"><button type="button" data-step="-5" data-field="seconds" data-k="${k}" data-i="${i}">−5</button><input inputmode="numeric" placeholder="seconds" data-k="${k}" data-i="${i}" data-f="seconds" value="${v.seconds??""}"><button type="button" data-step="5" data-field="seconds" data-k="${k}" data-i="${i}">+5</button></div><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
+ }
+ return `<div class="setrow smartrow"><div class="small">Set ${i+1}</div><div class="stepfield"><button type="button" data-step="-2.5" data-field="kg" data-k="${k}" data-i="${i}">−</button><input inputmode="decimal" placeholder="kg" data-k="${k}" data-i="${i}" data-f="kg" value="${v.kg??""}"><button type="button" data-step="2.5" data-field="kg" data-k="${k}" data-i="${i}">+</button></div><div class="stepfield"><button type="button" data-step="-1" data-field="reps" data-k="${k}" data-i="${i}">−</button><input inputmode="numeric" placeholder="reps" data-k="${k}" data-i="${i}" data-f="reps" value="${v.reps??""}"><button type="button" data-step="1" data-field="reps" data-k="${k}" data-i="${i}">+</button></div><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
 }
 function displaySummary(exName,sets){
   const mode=exMode(exName);
@@ -236,14 +380,23 @@ function renderWorkout(){
       let rows="";
       for(let i=0;i<ex.sets;i++) rows+=rowHtml(ex,k,i,sets[i]||{});
       const l=last(currentDay,ex.name), mode=exMode(ex.name);
-      const badge=mode==="weight"?(pb(ex.name)?`PB ${pb(ex.name)}kg`:"No PB"):(mode==="band"?"Resistance band":"Timed hold");
+      const badge=mode==="weight"?(pb(ex.name)?`PB ${pb(ex.name)}kg • e1RM ${strengthPB(ex.name).toFixed(1)}kg`:"No PB"):(mode==="band"?"Resistance band":"Timed hold");
       workoutBody.insertAdjacentHTML("beforeend",
-        `<div class="card"><div class="ex-head"><div class="ex-title-wrap"><img class="ex-thumb" src="${exerciseImage(ex.name)}" alt="${ex.name} exercise illustration"><div><div class="ex-name">${ex.name}</div><div class="target">Target: ${ex.sets} × ${ex.reps}</div></div></div><div class="small">${badge}</div></div><div class="last">${l?`Last: ${l.summary}`:"Last: No saved workout yet"}</div><div class="sets">${rows}</div><div style="margin-top:10px"><input placeholder="Notes (optional)" data-note="${k}" value="${existing?.note||""}"></div></div>`
+        `<div class="card"><div class="ex-head"><div class="ex-title-wrap"><img class="ex-thumb" src="${exerciseImage(ex.name)}" alt="${ex.name} exercise illustration"><div><div class="ex-name">${ex.name}</div><div class="target">Target: ${ex.sets} × ${ex.reps}</div></div></div><div class="small">${badge}</div></div><div class="last">${l?`Last: ${l.summary}`:"Last: No saved workout yet"}</div><div class="progression-tip">🎯 ${progressionAdvice(ex)}</div><div class="sets">${rows}</div><div style="margin-top:10px"><input placeholder="Notes (optional)" data-note="${k}" value="${existing?.note||""}"></div></div>`
       );
     });
   });
   bindWorkout();stats();
 }
+
+let restTimerHandle=null,restEnds=0;
+function startRestTimer(){
+ const sec=Number(restTimerSelect?.value)||0;if(!sec)return;
+ clearInterval(restTimerHandle);restEnds=Date.now()+sec*1000;
+ const tick=()=>{const left=Math.max(0,Math.ceil((restEnds-Date.now())/1000));restTimerDisplay.textContent=left?`Rest ${Math.floor(left/60)}:${String(left%60).padStart(2,"0")}`:"Rest complete ✓";if(!left)clearInterval(restTimerHandle)};
+ tick();restTimerHandle=setInterval(tick,250);
+}
+if(restTimerSelect){restTimerSelect.value=localStorage.getItem("sp_rest_timer")||"0";restTimerSelect.onchange=()=>localStorage.setItem("sp_rest_timer",restTimerSelect.value)}
 function bindWorkout(){
   document.querySelectorAll("input[data-k],select[data-k]").forEach(i=>i.oninput=e=>{
     const dr=D(),k=e.target.dataset.k,n=+e.target.dataset.i,f=e.target.dataset.f;
@@ -252,7 +405,13 @@ function bindWorkout(){
     dr[k].sets[n][f]=e.target.value;
     save("training_draft",dr);
   });
-  document.querySelectorAll("[data-note]").forEach(i=>i.oninput=e=>{
+  document.querySelectorAll("[data-step]").forEach(b=>b.onclick=e=>{
+ const el=e.currentTarget,k=el.dataset.k,n=+el.dataset.i,f=el.dataset.field,step=Number(el.dataset.step);
+ const dr=D();if(!dr[k])dr[k]={sets:[]};if(!dr[k].sets[n])dr[k].sets[n]={};
+ const cur=Number(dr[k].sets[n][f]??document.querySelector(`[data-k="${CSS.escape(k)}"][data-i="${n}"][data-f="${f}"]`)?.value)||0;
+ dr[k].sets[n][f]=String(Math.max(0,Math.round((cur+step)*10)/10));save("training_draft",dr);renderWorkout();
+});
+document.querySelectorAll("[data-note]").forEach(i=>i.oninput=e=>{
     const dr=D(),k=e.target.dataset.note;
     if(!dr[k])dr[k]={sets:[]};
     dr[k].note=e.target.value;save("training_draft",dr);
@@ -262,7 +421,8 @@ function bindWorkout(){
     if(!dr[k])dr[k]={sets:[]};
     if(!dr[k].sets[n])dr[k].sets[n]={};
     dr[k].sets[n].done=!dr[k].sets[n].done;
-    save("training_draft",dr);renderWorkout();
+    const justDone=dr[k].sets[n].done;
+    save("training_draft",dr);renderWorkout();if(justDone)startRestTimer();
   });
 }
 saveBtn.onclick=()=>{
@@ -283,11 +443,18 @@ saveBtn.onclick=()=>{
   }));
   if(!exercises.length){msg.textContent="Enter at least one set first.";return}
   const h=H();
+  let improved=0,maintained=0,pbs=0,totalVol=0;
+  exercises.forEach(e=>{
+   const mode=exMode(e.name),oldPB=pb(e.name),vals=(e.sets||[]).map(x=>mode==="weight"?Number(x.kg)||0:mode==="band"?bandScore(x.band):Number(x.seconds)||0);
+   const now=Math.max(...vals,0); if(now>oldPB){improved++;pbs++}else maintained++;
+   totalVol+=sessionVolume(e);
+  });
+  const scorecard={improved,maintained,pbs,totalVol};
   h.push({date:new Date().toISOString(),day:currentDay,title:data.title,exercises});
   save("training_history",h);
   Object.keys(dr).forEach(k=>{if(k.startsWith(currentDay+"__"))delete dr[k]});
   save("training_draft",dr);
-  msg.textContent="Workout saved.";
+  msg.innerHTML=`<div class="scorecard"><b>Workout saved ✓</b><span>🏆 ${scorecard.pbs} new PB${scorecard.pbs===1?"":"s"} • 📈 ${scorecard.improved} improved • ➡️ ${scorecard.maintained} maintained${scorecard.totalVol?` • ${Math.round(scorecard.totalVol).toLocaleString()} kg volume`:""}</span></div>`;
   renderWorkout();renderHistory();renderProgress();
 }
 clearBtn.onclick=()=>{
@@ -299,31 +466,29 @@ clearBtn.onclick=()=>{
 }
 function renderHistory(){const h=H().slice().reverse();historyList.innerHTML=h.length?"":'<div class="card">No saved workouts yet.</div>';h.forEach(s=>historyList.insertAdjacentHTML("beforeend",`<div class="session"><b>${s.day} — ${s.title}</b><div class="small">${new Date(s.date).toLocaleString()}</div><div style="margin-top:8px">${s.exercises.map(e=>`<div style="margin:7px 0"><strong>${e.name}</strong><div class="small">${e.summary}</div></div>`).join("")}</div></div>`))}
 function renderProgress(){
+ const parts=["All","Chest","Back","Shoulders","Biceps","Triceps","Knee / Legs","Other"];
+ const oldPart=bodyPartSelect.value||"All";
+ bodyPartSelect.innerHTML=parts.map(x=>`<option ${x===oldPart?"selected":""}>${x}</option>`).join("");
+ const filtered=names().filter(n=>bodyPartSelect.value==="All"||bodyPart(n)===bodyPartSelect.value);
  const cur=progressSelect.value;
- progressSelect.innerHTML=names().map(n=>`<option>${n}</option>`).join("");
- if(cur&&names().includes(cur))progressSelect.value=cur;
- const n=progressSelect.value;if(!n)return;
- const pts=series(n),mx=Math.max(...pts.map(x=>x.v),1),recent=pts.slice(-8);
+ progressSelect.innerHTML=filtered.map(n=>`<option>${n}</option>`).join("");
+ if(cur&&filtered.includes(cur))progressSelect.value=cur;
+ const n=progressSelect.value;
+ progressInsights.innerHTML=progressInsightHtml();
+ if(!n){progressCard.innerHTML='<div class="card">No exercises in this body-part section yet.</div>';return}
+ const mode=exMode(n),pts=series(n),recent=pts.slice(-8),maxScale=mode==="band"?BAND_LEVELS.length:Math.max(...pts.map(x=>x.v),1);
  let summary="";
  if(pts.length){
-  const first=pts[0].v,latest=pts[pts.length-1].v,best=Math.max(...pts.map(x=>x.v));
-  const change=latest-first,pct=first?change/first*100:0,sign=change>0?"+":"";
-  summary=`<div class="progress-summary">
-   <div class="progress-metric"><span>Starting</span><b>${first} kg</b></div>
-   <div class="progress-metric"><span>Latest</span><b>${latest} kg</b></div>
-   <div class="progress-metric"><span>Personal best</span><b>${best} kg</b></div>
-   <div class="progress-metric"><span>Overall change</span><b>${sign}${change.toFixed(1).replace(".0","")} kg</b></div>
-  </div>
-  <div class="progress-trend"><b>${change>0?"Progressing ↑":change<0?"Below starting weight ↓":"Holding steady →"}</b>
-  <span>${sign}${pct.toFixed(1)}% since first recorded session</span></div>`;
+  const first=pts[0].v,latest=pts[pts.length-1].v,best=Math.max(...pts.map(x=>x.v)),change=latest-first;
+  let changeText="",subText="";
+  if(mode==="band"){changeText=`${change>0?"+":""}${change} level${Math.abs(change)===1?"":"s"}`;subText=`${fmtProgressValue(n,first)} → ${fmtProgressValue(n,latest)}`}
+  else{const pct=first?change/first*100:0;changeText=`${change>0?"+":""}${mode==="seconds"?change+" sec":change.toFixed(1).replace(".0","")+" kg"}`;subText=`${change>0?"+":""}${pct.toFixed(1)}% since first recorded session`}
+  summary=`<div class="progress-summary"><div class="progress-metric"><span>Starting</span><b>${fmtProgressValue(n,first)}</b></div><div class="progress-metric"><span>Latest</span><b>${fmtProgressValue(n,latest)}</b></div><div class="progress-metric"><span>Personal best</span><b>${fmtProgressValue(n,best)}</b></div><div class="progress-metric"><span>Overall change</span><b>${changeText}</b></div></div><div class="progress-trend"><b>${change>0?"Progressing ↑":change<0?"Below starting level ↓":"Holding steady →"}</b><span>${subText}</span></div>`;
  }
- progressCard.innerHTML=`<div class="card">
-  <div class="ex-head"><div><div class="ex-name">${n}</div><div class="small">${pts.length} recorded sessions</div></div>
-  <div><strong>${pb(n)||"—"}${pb(n)?" kg":""}</strong><div class="small">best weight</div></div></div>
-  <div class="chart">${recent.length?`<div class="barwrap">${recent.map(x=>`<div class="barcol"><div class="barvalue">${x.v} kg</div><div class="bar" style="height:${Math.max(8,Math.round(x.v/mx*100))}%"></div></div>`).join("")}</div><div class="labels">${recent.map(x=>`<span>${x.d.toLocaleDateString(undefined,{month:"short",day:"numeric"})}</span>`).join("")}</div>`:'<div class="small" style="padding:20px">Save workouts to build your graph.</div>'}</div>
-  ${summary}</div>`;
+ const best=pb(n),ex=programExercise(n),e1=exMode(n)==="weight"?strengthPB(n):0;
+ progressCard.innerHTML=`${topGrowthHtml()}<div class="card progress-exercise-card"><div class="ex-head"><div><div class="ex-name">${n}</div><div class="small">${bodyPart(n)} • ${pts.length} recorded sessions • ${mode==="band"?"Band resistance":mode==="seconds"?"Hold duration":"Weight"}</div></div><div><strong>${best?fmtProgressValue(n,best):"—"}</strong><div class="small">${e1?`e1RM ${e1.toFixed(1)} kg`:"personal best"}</div></div></div><div class="chart">${recent.length?`<div class="barwrap">${recent.map(x=>`<div class="barcol"><div class="barvalue">${fmtProgressValue(n,x.v)}</div><div class="bar" style="height:${Math.max(8,Math.round(x.v/maxScale*100))}%"></div></div>`).join("")}</div><div class="labels">${recent.map(x=>`<span>${x.d.toLocaleDateString(undefined,{month:"short",day:"numeric"})}</span>`).join("")}</div>`:'<div class="small" style="padding:20px">Save workouts to build your graph.</div>'}</div>${summary}${ex?`<div class="progression-tip">🎯 ${progressionAdvice(ex)}</div>`:""}</div>`;
 }
-progressSelect.onchange=renderProgress;
+progressSelect.onchange=renderProgress;bodyPartSelect.onchange=renderProgress;
 function editTabs(){editDayTabs.innerHTML="";Object.keys(PROGRAM).forEach(d=>{const b=document.createElement("button");b.className="pill"+(d===editDay?" active":"");b.textContent=d;b.onclick=()=>{editDay=d;renderEditor()};editDayTabs.appendChild(b)})}
 function persist(){save("training_program_v2",PROGRAM);renderWorkout();renderProgress()}
 function renderEditor(){editTabs();const d=PROGRAM[editDay];programEditor.innerHTML=`<div class="card"><div class="small">Session title</div><input id="dayTitle" value="${d.title}"></div>`;d.groups.forEach((g,gi)=>{let body=g.ex.map((ex,ei)=>`<div class="editrow"><input value="${ex.name}" data-name="${gi}:${ei}"><input inputmode="numeric" value="${ex.sets}" data-sets="${gi}:${ei}"><input class="repsedit" value="${ex.reps}" data-reps="${gi}:${ei}"><button class="danger" data-del="${gi}:${ei}">×</button></div>`).join("");programEditor.insertAdjacentHTML("beforeend",`<div class="card"><div class="ex-head"><div class="ex-name">${g.name}</div></div>${body}<button class="add" data-add="${gi}">+ Add exercise</button></div>`)});dayTitle.onchange=e=>{d.title=e.target.value;persist()};document.querySelectorAll("[data-name]").forEach(x=>x.onchange=e=>{let[a,b]=e.target.dataset.name.split(":").map(Number);d.groups[a].ex[b].name=e.target.value||"Exercise";persist()});document.querySelectorAll("[data-sets]").forEach(x=>x.onchange=e=>{let[a,b]=e.target.dataset.sets.split(":").map(Number);d.groups[a].ex[b].sets=Math.max(1,Math.min(10,+e.target.value||1));persist()});document.querySelectorAll("[data-reps]").forEach(x=>x.onchange=e=>{let[a,b]=e.target.dataset.reps.split(":").map(Number);d.groups[a].ex[b].reps=e.target.value||"8–12";persist()});document.querySelectorAll("[data-del]").forEach(x=>x.onclick=e=>{let[a,b]=e.target.dataset.del.split(":").map(Number);d.groups[a].ex.splice(b,1);persist();renderEditor()});document.querySelectorAll("[data-add]").forEach(x=>x.onclick=e=>{d.groups[+e.target.dataset.add].ex.push({name:"New Exercise",sets:3,reps:"8–12"});persist();renderEditor()})}
@@ -346,7 +511,7 @@ function exportSPBackup(){
   try{
     const data = {
       app: "SP Trainer",
-      version: 8,
+      version: 10,
       exportedAt: new Date().toISOString(),
       storage: {}
     };
