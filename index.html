@@ -37,12 +37,38 @@
 .insight-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}.insight-card{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:10px;min-width:0}.insight-card b{display:block;font-size:20px}.insight-card span{display:block;font-size:11px;font-weight:800;margin:2px 0}.insight-card small{display:block;font-size:9px;color:var(--muted);overflow:hidden;text-overflow:ellipsis}
 .scorecard{display:flex;flex-direction:column;gap:4px}.scorecard b{font-size:14px}.scorecard span{font-size:12px}
 @media(max-width:520px){.progress-filters{grid-template-columns:1fr}.insight-grid{grid-template-columns:1fr 1fr 1fr}.smartrow{grid-template-columns:auto 1fr}.smartrow>.stepfield{grid-column:auto}.smartrow>.tick{grid-column:auto}.stepfield button{min-width:32px;padding:0 4px}}
+
+/* V10.1 phone-first workout logging */
+.card{max-width:100%;box-sizing:border-box;overflow:hidden}
+.mobile-setrow{display:grid!important;grid-template-columns:46px minmax(0,1fr) 44px!important;gap:8px!important;align-items:end!important;padding:10px 0;border-top:1px solid var(--border)}
+.mobile-setrow:first-child{border-top:0}
+.setnum{font-size:12px;color:var(--muted);padding-bottom:12px}
+.setfields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;min-width:0}
+.setfields.one{grid-template-columns:minmax(0,1fr)}
+.fieldgroup{min-width:0}.fieldgroup>span{display:block;font-size:10px;color:var(--muted);margin:0 0 4px 2px;font-weight:700}
+.stepfield{display:grid!important;grid-template-columns:30px minmax(0,1fr) 30px!important;gap:3px!important;width:100%;min-width:0}
+.stepfield button{width:30px!important;min-width:30px!important;height:38px!important;min-height:38px!important;padding:0!important;border-radius:9px!important;font-size:16px!important}
+.stepfield input{width:100%!important;min-width:0!important;height:38px!important;padding:6px 3px!important;text-align:center!important;box-sizing:border-box!important;font-size:15px!important}
+.stepfield.seconds{grid-template-columns:38px minmax(0,1fr) 38px!important}.stepfield.seconds button{width:38px!important;min-width:38px!important;font-size:12px!important}
+.mobile-setrow>.tick{width:44px!important;min-width:44px!important;height:38px!important;margin-bottom:0!important}
+.timer-left{display:flex;flex-direction:column;gap:5px}.timer-left small{font-size:10px;color:var(--muted)}#restTimerDisplay{white-space:nowrap}
+@media(max-width:420px){
+ .card{padding-left:12px!important;padding-right:12px!important}
+ .mobile-setrow{grid-template-columns:38px minmax(0,1fr) 40px!important;gap:5px!important}
+ .setnum{font-size:11px}
+ .setfields{gap:5px}
+ .stepfield{grid-template-columns:27px minmax(0,1fr) 27px!important}
+ .stepfield button{width:27px!important;min-width:27px!important}
+ .mobile-setrow>.tick{width:40px!important;min-width:40px!important}
+ .ex-title-wrap{min-width:0}.ex-name{overflow-wrap:anywhere}
+ .timerbar{align-items:flex-start!important}
+}
 </style></head><body>
 <div class="wrap"><div class="brand-head"><img class="brand-icon" src="icon-192.png" alt="SP Trainer icon"><div class="brand-copy"><h1>SP Trainer</h1><p class="sub">Track. Train. Progress.</p></div></div>
 <div class="nav"><button class="pill active" data-view="workout">Workout</button><button class="pill" data-view="history">History</button><button class="pill" data-view="progress">Progress</button><button class="pill" data-view="program">Program</button>
 <button class="pill" data-view="help">Help</button></div>
 <div class="stats"><div class="stat"><b id="sessionsStat">0</b><span>saved sessions</span></div><div class="stat"><b id="pbStat">0</b><span>exercise PBs</span></div><div class="stat"><b id="daysStat">0</b><span>days trained</span></div></div>
-<section id="workout" class="view active"><div class="days" id="dayTabs"></div><div class="timerbar"><label>Rest timer <select id="restTimerSelect"><option value="0">Off</option><option value="60">60 sec</option><option value="90">90 sec</option><option value="120">2 min</option><option value="180">3 min</option></select></label><span id="restTimerDisplay"></span></div><div id="workoutBody"></div><div class="actions"><button class="secondary" id="clearBtn">Clear today</button><button class="main" id="saveBtn">Finish & Save</button></div><div id="msg" class="msg"></div></section>
+<section id="workout" class="view active"><div class="days" id="dayTabs"></div><div class="timerbar"><div class="timer-left"><label>Rest timer <select id="restTimerSelect"><option value="0">Off</option><option value="60">60 sec</option><option value="90">90 sec</option><option value="120">2 min</option><option value="180">3 min</option></select></label><small>Starts automatically when you ✓ a set</small></div><span id="restTimerDisplay"></span></div><div id="workoutBody"></div><div class="actions"><button class="secondary" id="clearBtn">Clear today</button><button class="main" id="saveBtn">Finish & Save</button></div><div id="msg" class="msg"></div></section>
 <section id="history" class="view"><div class="section-title"><h2>Workout History</h2><span>Most recent first</span></div><div id="historyList"></div></section>
 <section id="progress" class="view"><div class="section-title"><h2>Progress</h2><span>Strength & resistance trends</span></div>
 <div class="progress-filters"><select id="bodyPartSelect"></select><select id="progressSelect"></select></div>
@@ -351,14 +377,13 @@ function rowHtml(ex,k,i,v){
  const mode=exMode(ex.name);
  if(mode==="band"){
   const options=['<option value="">Band</option>'].concat(BAND_LEVELS.map(x=>`<option value="${x}" ${v.band===x?"selected":""}>${x}</option>`)).join("");
-  return `<div class="setrow smartrow"><div class="small">Set ${i+1}</div><select data-k="${k}" data-i="${i}" data-f="band">${options}</select><div class="stepfield"><button type="button" data-step="-1" data-field="reps" data-k="${k}" data-i="${i}">−</button><input inputmode="numeric" placeholder="reps" data-k="${k}" data-i="${i}" data-f="reps" value="${v.reps??""}"><button type="button" data-step="1" data-field="reps" data-k="${k}" data-i="${i}">+</button></div><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
+  return `<div class="setrow mobile-setrow"><div class="setnum">Set ${i+1}</div><div class="setfields"><div class="fieldgroup"><span>Band</span><select data-k="${k}" data-i="${i}" data-f="band">${options}</select></div><div class="fieldgroup"><span>Reps</span><div class="stepfield"><button type="button" data-step="-1" data-field="reps" data-k="${k}" data-i="${i}">−</button><input inputmode="numeric" data-k="${k}" data-i="${i}" data-f="reps" value="${v.reps??""}"><button type="button" data-step="1" data-field="reps" data-k="${k}" data-i="${i}">+</button></div></div></div><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
  }
  if(mode==="seconds"){
-  return `<div class="setrow smartrow"><div class="small">Set ${i+1}</div><div class="stepfield wide"><button type="button" data-step="-5" data-field="seconds" data-k="${k}" data-i="${i}">−5</button><input inputmode="numeric" placeholder="seconds" data-k="${k}" data-i="${i}" data-f="seconds" value="${v.seconds??""}"><button type="button" data-step="5" data-field="seconds" data-k="${k}" data-i="${i}">+5</button></div><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
+  return `<div class="setrow mobile-setrow"><div class="setnum">Set ${i+1}</div><div class="setfields one"><div class="fieldgroup"><span>Hold</span><div class="stepfield seconds"><button type="button" data-step="-5" data-field="seconds" data-k="${k}" data-i="${i}">−5</button><input inputmode="numeric" data-k="${k}" data-i="${i}" data-f="seconds" value="${v.seconds??""}"><button type="button" data-step="5" data-field="seconds" data-k="${k}" data-i="${i}">+5</button></div></div></div><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
  }
- return `<div class="setrow smartrow"><div class="small">Set ${i+1}</div><div class="stepfield"><button type="button" data-step="-2.5" data-field="kg" data-k="${k}" data-i="${i}">−</button><input inputmode="decimal" placeholder="kg" data-k="${k}" data-i="${i}" data-f="kg" value="${v.kg??""}"><button type="button" data-step="2.5" data-field="kg" data-k="${k}" data-i="${i}">+</button></div><div class="stepfield"><button type="button" data-step="-1" data-field="reps" data-k="${k}" data-i="${i}">−</button><input inputmode="numeric" placeholder="reps" data-k="${k}" data-i="${i}" data-f="reps" value="${v.reps??""}"><button type="button" data-step="1" data-field="reps" data-k="${k}" data-i="${i}">+</button></div><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
-}
-function displaySummary(exName,sets){
+ return `<div class="setrow mobile-setrow"><div class="setnum">Set ${i+1}</div><div class="setfields"><div class="fieldgroup"><span>Weight</span><div class="stepfield"><button type="button" data-step="-2.5" data-field="kg" data-k="${k}" data-i="${i}">−</button><input inputmode="decimal" data-k="${k}" data-i="${i}" data-f="kg" value="${v.kg??""}"><button type="button" data-step="2.5" data-field="kg" data-k="${k}" data-i="${i}">+</button></div></div><div class="fieldgroup"><span>Reps</span><div class="stepfield"><button type="button" data-step="-1" data-field="reps" data-k="${k}" data-i="${i}">−</button><input inputmode="numeric" data-k="${k}" data-i="${i}" data-f="reps" value="${v.reps??""}"><button type="button" data-step="1" data-field="reps" data-k="${k}" data-i="${i}">+</button></div></div></div><button class="tick ${v.done?"done":""}" data-tick="${k}" data-i="${i}">${v.done?"✓":"○"}</button></div>`;
+}function displaySummary(exName,sets){
   const mode=exMode(exName);
   if(mode==="band"){
     return sets.map(x=>`${x.band||"—"} band × ${x.reps||"—"} reps`).join(" / ");
@@ -511,7 +536,7 @@ function exportSPBackup(){
   try{
     const data = {
       app: "SP Trainer",
-      version: 10,
+      version: 10.1,
       exportedAt: new Date().toISOString(),
       storage: {}
     };
