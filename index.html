@@ -14,7 +14,7 @@
 .brand-copy h1{margin:0;font-size:28px;line-height:1.05}
 .brand-copy .sub{margin:4px 0 0}
 
-.unitlabel{display:flex;align-items:center;justify-content:center;min-height:44px;background:var(--panel2);border:1px solid var(--border);border-radius:10px}\n</style></head><body>
+.unitlabel{display:flex;align-items:center;justify-content:center;min-height:44px;background:var(--panel2);border:1px solid var(--border);border-radius:10px}\n.progress-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}.progress-metric{background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:12px}.progress-metric span{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}.progress-metric b{font-size:19px}.progress-trend{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px;background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:12px}.progress-trend span{font-size:12px;color:var(--muted)}.barcol{height:100%;flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;min-width:0}.barcol .bar{width:72%}.barvalue{font-size:10px;font-weight:700;margin-bottom:4px;white-space:nowrap}</style></head><body>
 <div class="wrap"><div class="brand-head"><img class="brand-icon" src="icon-192.png" alt="SP Trainer icon"><div class="brand-copy"><h1>SP Trainer</h1><p class="sub">Track. Train. Progress.</p></div></div>
 <div class="nav"><button class="pill active" data-view="workout">Workout</button><button class="pill" data-view="history">History</button><button class="pill" data-view="progress">Progress</button><button class="pill" data-view="program">Program</button>
 <button class="pill" data-view="help">Help</button></div>
@@ -81,6 +81,19 @@ if(!localStorage.getItem("sp_trainer_v7_rehab_fields_migrated")){
   });
   save("training_program_v2",PROGRAM);
   localStorage.setItem("sp_trainer_v7_rehab_fields_migrated","1");
+}
+
+if(!localStorage.getItem("sp_trainer_v8_squat_migrated")){
+ ["Sunday","Wednesday"].forEach(day=>{
+  const groups=PROGRAM[day]?.groups||[];
+  const rehab=groups.find(g=>(g.name||"").toLowerCase().includes("knee"));
+  if(rehab && !(rehab.ex||[]).some(ex=>(ex.name||"").toLowerCase()==="barbell squat")){
+   const i=rehab.ex.findIndex(ex=>(ex.name||"").toLowerCase().includes("wall sit"));
+   rehab.ex.splice(i>=0?i+1:0,0,{name:"Barbell Squat",sets:3,reps:"8–10"});
+  }
+ });
+ save("training_program_v2",PROGRAM);
+ localStorage.setItem("sp_trainer_v8_squat_migrated","1");
 }
 
 const H=()=>load("training_history",[]),D=()=>load("training_draft",{}),K=(d,n)=>d+"__"+n;
@@ -285,7 +298,31 @@ clearBtn.onclick=()=>{
   renderWorkout();
 }
 function renderHistory(){const h=H().slice().reverse();historyList.innerHTML=h.length?"":'<div class="card">No saved workouts yet.</div>';h.forEach(s=>historyList.insertAdjacentHTML("beforeend",`<div class="session"><b>${s.day} — ${s.title}</b><div class="small">${new Date(s.date).toLocaleString()}</div><div style="margin-top:8px">${s.exercises.map(e=>`<div style="margin:7px 0"><strong>${e.name}</strong><div class="small">${e.summary}</div></div>`).join("")}</div></div>`))}
-function renderProgress(){const cur=progressSelect.value;progressSelect.innerHTML=names().map(n=>`<option>${n}</option>`).join("");if(cur&&names().includes(cur))progressSelect.value=cur;const n=progressSelect.value;if(!n)return;const s=series(n),mx=Math.max(...s.map(x=>x.v),1);progressCard.innerHTML=`<div class="card"><div class="ex-head"><div><div class="ex-name">${n}</div><div class="small">${s.length} recorded sessions</div></div><div><strong>${pb(n)||"—"}${pb(n)?" kg":""}</strong><div class="small">best weight</div></div></div><div class="chart">${s.length?`<div class="barwrap">${s.slice(-8).map(x=>`<div class="bar" style="height:${Math.max(8,Math.round(x.v/mx*100))}%"></div>`).join("")}</div><div class="labels">${s.slice(-8).map(x=>`<span>${x.d.toLocaleDateString(undefined,{month:"short",day:"numeric"})}</span>`).join("")}</div>`:'<div class="small" style="padding:20px">Save workouts to build your graph.</div>'}</div></div>`}
+function renderProgress(){
+ const cur=progressSelect.value;
+ progressSelect.innerHTML=names().map(n=>`<option>${n}</option>`).join("");
+ if(cur&&names().includes(cur))progressSelect.value=cur;
+ const n=progressSelect.value;if(!n)return;
+ const pts=series(n),mx=Math.max(...pts.map(x=>x.v),1),recent=pts.slice(-8);
+ let summary="";
+ if(pts.length){
+  const first=pts[0].v,latest=pts[pts.length-1].v,best=Math.max(...pts.map(x=>x.v));
+  const change=latest-first,pct=first?change/first*100:0,sign=change>0?"+":"";
+  summary=`<div class="progress-summary">
+   <div class="progress-metric"><span>Starting</span><b>${first} kg</b></div>
+   <div class="progress-metric"><span>Latest</span><b>${latest} kg</b></div>
+   <div class="progress-metric"><span>Personal best</span><b>${best} kg</b></div>
+   <div class="progress-metric"><span>Overall change</span><b>${sign}${change.toFixed(1).replace(".0","")} kg</b></div>
+  </div>
+  <div class="progress-trend"><b>${change>0?"Progressing ↑":change<0?"Below starting weight ↓":"Holding steady →"}</b>
+  <span>${sign}${pct.toFixed(1)}% since first recorded session</span></div>`;
+ }
+ progressCard.innerHTML=`<div class="card">
+  <div class="ex-head"><div><div class="ex-name">${n}</div><div class="small">${pts.length} recorded sessions</div></div>
+  <div><strong>${pb(n)||"—"}${pb(n)?" kg":""}</strong><div class="small">best weight</div></div></div>
+  <div class="chart">${recent.length?`<div class="barwrap">${recent.map(x=>`<div class="barcol"><div class="barvalue">${x.v} kg</div><div class="bar" style="height:${Math.max(8,Math.round(x.v/mx*100))}%"></div></div>`).join("")}</div><div class="labels">${recent.map(x=>`<span>${x.d.toLocaleDateString(undefined,{month:"short",day:"numeric"})}</span>`).join("")}</div>`:'<div class="small" style="padding:20px">Save workouts to build your graph.</div>'}</div>
+  ${summary}</div>`;
+}
 progressSelect.onchange=renderProgress;
 function editTabs(){editDayTabs.innerHTML="";Object.keys(PROGRAM).forEach(d=>{const b=document.createElement("button");b.className="pill"+(d===editDay?" active":"");b.textContent=d;b.onclick=()=>{editDay=d;renderEditor()};editDayTabs.appendChild(b)})}
 function persist(){save("training_program_v2",PROGRAM);renderWorkout();renderProgress()}
@@ -309,7 +346,7 @@ function exportSPBackup(){
   try{
     const data = {
       app: "SP Trainer",
-      version: 7.1,
+      version: 8,
       exportedAt: new Date().toISOString(),
       storage: {}
     };
